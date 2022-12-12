@@ -16,12 +16,9 @@ Engine::Engine()
 
 	mainView = View(window.getDefaultView());
 
-
 	backgroundTexture.loadFromFile("graphics/back.jpg");
 
 	backgroundTexture.setRepeated(true);
-
-	//sprite for background
 
 	//sf::Sprite backgroundSprite(backgroundTexture, iBounds);
 	backgroundSprite.setTexture(backgroundTexture);
@@ -89,7 +86,6 @@ void Engine::run()
 			spriteOffset.y = floor(viewOffset.y / backgroundTexture.getSize().y) * backgroundTexture.getSize().y;
 			//sets the background position
 			backgroundSprite.setPosition(spriteStart - spriteOffset);
-
 		}	
 
 		input();
