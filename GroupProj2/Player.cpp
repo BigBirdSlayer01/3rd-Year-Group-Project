@@ -229,7 +229,7 @@ bool Player::detectCollisions(FloatRect enemyBlock)
 
 void Player::hit()
 {
-	if (flashCount % 4 == 0) //every 4 frames - change sprite image
+	if (flashCount % 40 == 0) //every 4 frames - change sprite image
 	{
 		if (isFlashing)
 		{
@@ -242,7 +242,7 @@ void Player::hit()
 			isFlashing = true;
 		}
 		//after 10 flashes, reset sprite image to default and boolean values to false
-		if (flashCount % 40 == 0)
+		if (flashCount % 300 == 0)
 		{
 			isHit = false;
 			isFlashing = false;
