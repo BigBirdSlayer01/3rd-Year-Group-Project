@@ -106,11 +106,9 @@ bool Player::input()
 {
 	//sets jumped to false
 	m_JustJumped = false;
-	if (sf::Joystick::isConnected(0))
-	{
-		unsigned int buttonCount = sf::Joystick::getButtonCount(0);
-	}
 
+	unsigned int buttonCount = sf::Joystick::getButtonCount(0);
+	
 	if (Keyboard::isKeyPressed(Keyboard::Space))
 	{
 		//makes sure player is not falling for the jump
@@ -122,19 +120,22 @@ bool Player::input()
 			m_spacePressed = true;
 		}
 	}
-	
-	if (sf::Joystick::isButtonPressed(0, 0))
+	else if (sf::Joystick::isButtonPressed(0, 0))
 	{
-		//makes sure player is not falling for the jump
-		if (!m_IsJumping && !m_IsFalling)
-		{
-			m_IsJumping = true;
-			m_JumpTime = 0;
-			m_JustJumped = true;
-			m_spacePressed = true;
-		}
+
+			//makes sure player is not falling for the jump
+			if (!m_IsJumping && !m_IsFalling)
+			{
+				m_IsJumping = true;
+				m_JumpTime = 0;
+				m_JustJumped = true;
+				m_spacePressed = true;
+			}
+
 		
 	}
+	
+	
 	else
 	{
 		m_IsJumping = false;

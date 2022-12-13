@@ -39,6 +39,7 @@ Engine::Engine()
 	spriteCrosshair.setTexture(textureCrosshair);
 	spriteCrosshair.setOrigin(25, 25);
 
+
 	//for bullets
 	
 	currentBullet = 0;
@@ -96,10 +97,11 @@ void Engine::run()
 			user.input();
 			user.update(dt.asSeconds());
 			//updates enemy
-			enemy.update(dt.asSeconds(), user.getCenter());
-			if (
-				user.detectCollisions(enemy.getPosition())//check for collision between player and enemy
-				)
+			if (enemy.isAlive())
+			{
+				enemy.update(dt.asSeconds(), user.getCenter());
+			}
+			if (user.detectCollisions(enemy.getPosition()))//check for collision between player and enemy)
 			{
 				enemy.hit();
 			}

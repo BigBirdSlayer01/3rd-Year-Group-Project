@@ -1,6 +1,6 @@
 #pragma once
 #include <SFML/Graphics.hpp>
-
+#include <vector>
 #include "Bullet.h"
 #include "Player.h"
 #include "Enemy.h"
@@ -54,15 +54,18 @@ private:
 
 	Time lastFired;
 
+	//std::vector<Enemy*> EnemyVector;
+
 	int currentBullet;
 	int clipsize;
 	int bulletsInClip;
 	float fireRate;
 
-
 	void draw();
 	void update(float dtAsSeconds);
 	void input();
+
+
 
 public:
 	// The Engine constructor

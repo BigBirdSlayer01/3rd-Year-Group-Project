@@ -14,18 +14,28 @@ void Engine::update(float dtAsSeconds)
 
 		mouseWorldPosition = window.mapPixelToCoords(Mouse::getPosition(), mainView);
 
-		// Set the crosshair to the mouse world location
-		spriteCrosshair.setPosition(mouseWorldPosition);
-
-		// Set the crosshair to the mouse world location
-		spriteCrosshair.setPosition(mouseWorldPosition);
-
 		//update bullets
 		for (int i = 0; i < 100; i++)
 		{
 			if (bullets[i].isBulletActive())
 			{
 				bullets[i].updateBullet(dtAsSeconds);
+			}
+		}
+
+		//checks for enemy/bullet collision
+		
+		for (int i = 0; i < 100; i++)
+		{
+			if (bullets[i].isBulletActive() && enemy.isAlive())
+			{
+				if (bullets[i].getBulletPosition().intersects(enemy.getPosition()))
+				{
+					bullets[i].stopBullet();
+
+					enemy.hit();
+
+				}
 			}
 		}
 	}
