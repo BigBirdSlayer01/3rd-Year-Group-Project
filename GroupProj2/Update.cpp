@@ -14,6 +14,8 @@ void Engine::update(float dtAsSeconds)
 
 		mouseWorldPosition = window.mapPixelToCoords(Mouse::getPosition(), mainView);
 
+
+
 		//update bullets
 		for (int i = 0; i < 100; i++)
 		{
@@ -27,13 +29,13 @@ void Engine::update(float dtAsSeconds)
 		
 		for (int i = 0; i < 100; i++)
 		{
-			if (bullets[i].isBulletActive() && enemy.isAlive())
+			if (bullets[i].isBulletActive() && enemy[1].isAlive())
 			{
-				if (bullets[i].getBulletPosition().intersects(enemy.getPosition()))
+				if (bullets[i].getBulletPosition().intersects(enemy[1].getPosition()))
 				{
 					bullets[i].stopBullet();
 
-					enemy.hit();
+					enemy[1].hit();
 
 				}
 			}

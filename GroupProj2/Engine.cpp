@@ -30,10 +30,10 @@ Engine::Engine()
 
 	//spawns player
 	user.Spawn(startPos, Gravity);
-	enemy.spawn(resolution.x, resolution.y / 2);
+	enemy[1].spawn(resolution.x, resolution.y / 2);
 
 	// Hide the mouse pointer and replace it with crosshair
-	window.setMouseCursorVisible(false);
+	window.setMouseCursorVisible(true);
 
 	textureCrosshair.loadFromFile("graphics/crosshair.png");
 	spriteCrosshair.setTexture(textureCrosshair);
@@ -97,12 +97,12 @@ void Engine::run()
 			user.input();
 			user.update(dt.asSeconds());
 			//updates enemy
-			if (enemy.isAlive())
+			if (enemy[1].isAlive())
 			{
-				enemy.update(dt.asSeconds(), user.getCenter());
-				if (user.detectCollisions(enemy.getPosition()))//check for collision between player and enemy)
+				enemy[1].update(dt.asSeconds(), user.getCenter());
+				if (user.detectCollisions(enemy[1].getPosition()))//check for collision between player and enemy)
 				{
-					enemy.hit();
+					enemy[1].hit();
 				}
 			}
 			

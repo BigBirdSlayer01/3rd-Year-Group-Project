@@ -45,10 +45,13 @@ private:
 	int starty = 1000;
 
 	Player user;
-	Enemy enemy;
+	Enemy enemy[20];
 
 	Sprite spriteCrosshair;
 	Texture textureCrosshair;
+
+	float newX = 0.f;
+	float newY = 0.f;
 
 	Bullet bullets[100];
 
