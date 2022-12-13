@@ -25,11 +25,19 @@ private:
 	//is enemy alive? True if yes
 	bool m_Alive;
 
+	//time since the enemy was spawned
+	float m_SecondsSinceSpawn;
+
 public:
 	//called when bullet hits enemy
 	bool hit();//will return true when enemy is dead
 	//return value of m_Alive (is the enemy alive)
 	bool isAlive();
+
+	float getTimeSpawn();
+
+	
+
 	//spawn enemy
 	void spawn(float startX, float startY);
 	//rectangular position of enemy in the world

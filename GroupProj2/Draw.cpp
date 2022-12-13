@@ -6,11 +6,13 @@ void Engine::draw()
 	window.setView(mainView);
 	window.draw(backgroundSprite);
 	window.draw(user.getSprite());
-	if (enemy[1].isAlive())
+	for (int i = 0; i < 19; i++)
 	{
-		window.draw(enemy[1].getSprite());
+		if (enemy[i].isAlive())
+		{
+			window.draw(enemy[i].getSprite());
+		}
 	}
-	
 	for (int i = 0; i < 100; i++)
 	{
 		if (bullets[i].isBulletActive())

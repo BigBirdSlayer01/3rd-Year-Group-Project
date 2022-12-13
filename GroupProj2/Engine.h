@@ -53,6 +53,8 @@ private:
 	float newX = 0.f;
 	float newY = 0.f;
 
+	int currentEnemy = 0;
+
 	Bullet bullets[100];
 
 	Time lastFired;

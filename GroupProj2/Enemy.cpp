@@ -31,6 +31,8 @@ bool Enemy::isAlive()
 //spawn enemy using starter values
 void Enemy::spawn(float startX, float startY)
 {
+	m_SecondsSinceSpawn = 0;
+
 	//setting enemy's texture and sprite
 	m_Texture.loadFromFile("graphics/chicken_base.png");
 	m_Sprite = Sprite(m_Texture);
@@ -71,6 +73,11 @@ void Enemy::update(float elapsedTime, Vector2f playerLocation)
 	float playerX = playerLocation.x;
 	float playerY = playerLocation.y;
 
+	if (m_Alive)
+	{
+		m_SecondsSinceSpawn += elapsedTime;
+	}
+
 	//if enemy is alive
 	if (isAlive())
 	{
@@ -101,4 +108,9 @@ void Enemy::update(float elapsedTime, Vector2f playerLocation)
 
 	//officially move sprite
 	m_Sprite.setPosition(m_Position);
+}
+
+float Enemy::getTimeSpawn()
+{
+	return m_SecondsSinceSpawn;
 }

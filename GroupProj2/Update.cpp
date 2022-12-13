@@ -6,16 +6,17 @@ using namespace sf;
 
 void Engine::update(float dtAsSeconds)
 {
+	
 	//updates the frame
 	if (state == State::PLAYING)
 	{
+		resolution.x = resolution.x + user.getSpeed();
+
 		// Where is the mouse pointer
 		mouseScreenPosition = Mouse::getPosition();
 
 		mouseWorldPosition = window.mapPixelToCoords(Mouse::getPosition(), mainView);
-
-
-
+		
 		//update bullets
 		for (int i = 0; i < 100; i++)
 		{
@@ -29,16 +30,30 @@ void Engine::update(float dtAsSeconds)
 		
 		for (int i = 0; i < 100; i++)
 		{
-			if (bullets[i].isBulletActive() && enemy[1].isAlive())
+			for (int j = 0; j < currentEnemy+1; j++)
 			{
-				if (bullets[i].getBulletPosition().intersects(enemy[1].getPosition()))
+				if (bullets[i].isBulletActive() && enemy[j].isAlive())
 				{
-					bullets[i].stopBullet();
+					if (bullets[i].getBulletPosition().intersects(enemy[j].getPosition()))
+					{
+						bullets[i].stopBullet();
 
-					enemy[1].hit();
+						enemy[j].hit();
 
+					}
 				}
 			}
 		}
+		
+		if (enemy[currentEnemy].isAlive() == false)
+		{
+			currentEnemy++;
+			enemy[currentEnemy].spawn(resolution.x, resolution.y / 2);
+		}
+		if (currentEnemy > 19)
+		{
+			currentEnemy = 0;
+		}
+
 	}
 }

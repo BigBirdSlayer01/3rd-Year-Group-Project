@@ -79,6 +79,10 @@ void Engine::input()
 		{
 			bulletsInClip = clipsize;
 		}
+		if ((sf::Joystick::isButtonPressed(0, 7)))
+		{
+			window.close();
+		}
 		//move mouse with controller
 		if (sf::Joystick::isConnected(0))
 		{
