@@ -27,12 +27,12 @@ Engine::Engine()
 	backgroundSprite.setTexture(backgroundTexture);
 
 	//floorY value - this variable will hold Y value of the ground level
-	float floorY = resolution.y * 0.6; // 1/6 of screen size
+	float floorY = resolution.y * 0.7; // 0.7 of screen size
 	//declares start position
 	Vector2f startPos(150, floorY);
 
 	//spawns player
-	user.Spawn(startPos, Gravity);
+	user.Spawn(startPos, Gravity, resolution);
 	enemy.spawn(resolution.x, resolution.y / 2);
 
 	// Hide the mouse pointer and replace it with crosshair
@@ -98,7 +98,7 @@ void Engine::run()
 		{
 			//update player
 			user.input();
-			user.update(dt.asSeconds());
+			user.update(dt.asSeconds(), mouseWorldPosition);
 			//updates enemy
 			enemy.update(dt.asSeconds(), user.getCenter());
 			if (

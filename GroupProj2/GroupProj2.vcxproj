@@ -25,6 +25,7 @@
     <ClInclude Include="Obstacle.h" />
     <ClInclude Include="Pickup.h" />
     <ClInclude Include="Player.h" />
+    <ClInclude Include="PlayerArms.h" />
     <ClInclude Include="TextureHolder.h" />
   </ItemGroup>
   <ItemGroup>
@@ -37,6 +38,7 @@
     <ClCompile Include="Obstacle.cpp" />
     <ClCompile Include="Pickup.cpp" />
     <ClCompile Include="Player.cpp" />
+    <ClCompile Include="PlayerArms.cpp" />
     <ClCompile Include="TextureHolder.cpp" />
     <ClCompile Include="Update.cpp" />
     <ClCompile Include="UpdatePlayer.cpp" />
