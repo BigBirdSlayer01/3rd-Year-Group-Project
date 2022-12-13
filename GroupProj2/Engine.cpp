@@ -100,11 +100,12 @@ void Engine::run()
 			if (enemy.isAlive())
 			{
 				enemy.update(dt.asSeconds(), user.getCenter());
+				if (user.detectCollisions(enemy.getPosition()))//check for collision between player and enemy)
+				{
+					enemy.hit();
+				}
 			}
-			if (user.detectCollisions(enemy.getPosition()))//check for collision between player and enemy)
-			{
-				enemy.hit();
-			}
+			
 			//update objects
 			hit.update(dtAsSeconds);
 			thing.update(dtAsSeconds);
