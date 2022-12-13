@@ -44,8 +44,8 @@ void Engine::update(float dtAsSeconds)
 				}
 			}
 		}
-		
-		if (enemy[currentEnemy].isAlive() == false)
+
+		if (enemy[currentEnemy].getTimeSpawn() > 4 || enemy[currentEnemy].isAlive() == false)
 		{
 			currentEnemy++;
 			enemy[currentEnemy].spawn(resolution.x, resolution.y / 2);
