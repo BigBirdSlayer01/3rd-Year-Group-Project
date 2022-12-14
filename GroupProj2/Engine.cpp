@@ -10,6 +10,10 @@ Engine::Engine()
 	resolution.y = VideoMode::getDesktopMode().height;
 
 	window.create(VideoMode(resolution.x, resolution.y), "Chicken Hunt (Working Title)", Style::Fullscreen);
+	window.setFramerateLimit(500);
+
+	m_HudView.reset(
+		FloatRect(0, 0, resolution.x, resolution.y));
 
 	//creates a view
 	//View mainView(sf::FloatRect(0, 0, resolution.x, resolution.y));
