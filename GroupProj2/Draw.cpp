@@ -15,6 +15,15 @@ void Engine::draw()
 
 		}
 	}
+	// Draw the HUD
+// Switch to m_HudView
+	window.setView(m_HudView);
+	window.draw(m_Hud.getScore());
+	window.draw(m_Hud.getTime());
+	if (state != State::PLAYING)
+	{
+		window.draw(m_Hud.getMessage());
+	}
 	window.draw(spriteCrosshair);
 	window.display();
 }

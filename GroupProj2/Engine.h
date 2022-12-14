@@ -6,6 +6,7 @@
 #include "Enemy.h"
 #include "Pickup.h"
 #include "Obstacle.h"
+#include "HUD.h"
 
 using namespace sf;
 
@@ -23,6 +24,16 @@ private:
 
 	View mainView;
 
+	//STUFF I ADDED IS HERE
+	Hud m_Hud;
+	int m_FramesSinceLastHUDUpdate = 0;
+	int m_TargetFramesPerHUDUpdate = 500;
+	View m_HudView;
+
+	float m_TimeRemaining = 0;
+	Time m_GameTimeTotal;
+
+	//__END OF STUFF I ADDED
 	//clock for timing things
 	Clock clock;
 
