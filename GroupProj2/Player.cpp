@@ -7,9 +7,9 @@ void Player::Spawn(Vector2f startPosition, float gravity, Vector2f resolution)
 	//setting start y position
 	m_startY = startPosition.y;
 	//total height of screen = (startY / 7) * 10
-	const float screenHeight = (m_startY / 7) * 10;
+	screenHeight = (m_startY / 7) * 10;
 	//float - ratio for player sprite - sprite image height should be half of screen height
-	const float playerSizeRatio = (screenHeight / 5) / 128;//image height - 128pixels
+	playerSizeRatio = (screenHeight / 5) / 128;//image height - 128pixels
 
 	// Place the player at the starting point
 	m_Position.x = startPosition.x;
@@ -110,7 +110,14 @@ void Player::update(float elapsedTime, Vector2f targetCoords)
 	}
 
 	//update arms
-	arms->update(m_Position, targetCoords, m_resolution);
+	if (arms->update(m_Position, targetCoords, m_resolution) == true)
+	{
+		m_Sprite.setScale(playerSizeRatio,playerSizeRatio);
+	}
+	else
+	{
+		m_Sprite.setScale(-playerSizeRatio, playerSizeRatio);
+	}
 }
 
 //handles player input

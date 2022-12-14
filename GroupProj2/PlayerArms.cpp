@@ -20,7 +20,7 @@ void PlayerArms::spawn(Vector2f arm_Position)
 
 }
 
-void PlayerArms::update(Vector2f new_Position, Vector2f newTargetCoords, Vector2f resolution)
+bool PlayerArms::update(Vector2f new_Position, Vector2f newTargetCoords, Vector2f resolution)
 {
 	//update position values of playerArms
 	arm_Position = new_Position;
@@ -36,10 +36,12 @@ void PlayerArms::update(Vector2f new_Position, Vector2f newTargetCoords, Vector2
 	if ((angle > 90) || (angle<-90))
 	{
 		m_Sprite.setScale(armSizeRatio, -armSizeRatio);
+		return false;
 	}
 	else
 	{
 		m_Sprite.setScale(armSizeRatio, armSizeRatio);
+		return true;
 	}
 }
 

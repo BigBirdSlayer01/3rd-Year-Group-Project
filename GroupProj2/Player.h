@@ -81,7 +81,10 @@ protected:
 	bool isFlashing = false; //is the user currently flashing
 	//resolution size saved for PlayerArms
 	Vector2f m_resolution;
-
+	//screenHeight variable
+	float screenHeight;
+	//playerSizeRatio - stores ratio of player to screen res
+	float playerSizeRatio;
 
 	//possible private will leave as protected for now can chaange later
 	// Gravity will effect jump

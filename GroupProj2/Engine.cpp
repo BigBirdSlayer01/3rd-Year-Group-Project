@@ -17,7 +17,7 @@ Engine::Engine()
 	mainView = View(window.getDefaultView());
 
 
-	backgroundTexture.loadFromFile("graphics/back.jpg");
+	backgroundTexture.loadFromFile("graphics/back.png");
 
 	backgroundTexture.setRepeated(true);
 
@@ -25,7 +25,9 @@ Engine::Engine()
 
 	//sf::Sprite backgroundSprite(backgroundTexture, iBounds);
 	backgroundSprite.setTexture(backgroundTexture);
-
+	//scaling background to screen
+	float screenBackgroundYRatio = resolution.y / 677;
+	backgroundSprite.setScale(1.0f,screenBackgroundYRatio);
 	//floorY value - this variable will hold Y value of the ground level
 	float floorY = resolution.y * 0.7; // 0.7 of screen size
 	//declares start position
@@ -58,7 +60,7 @@ void Engine::run()
 	Pickup thing(0);
 
 	//values used to scroll background
-	FloatRect fBounds(0.f, 0.f, (resolution.x * 2.5), (resolution.y));
+	FloatRect fBounds(0.f, 0.f, (resolution.x * 2.8), (resolution.y));
 
 	IntRect iBounds(fBounds);
 

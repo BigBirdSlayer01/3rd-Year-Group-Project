@@ -7,7 +7,7 @@ using namespace sf;
 class PlayerArms
 {
 public:
-	void update(Vector2f newPosition, Vector2f newTargetCoords, Vector2f resolution);
+	bool update(Vector2f newPosition, Vector2f newTargetCoords, Vector2f resolution);
 	void spawn(Vector2f arm_Position);
 	Sprite getArmSprite();
 private:
