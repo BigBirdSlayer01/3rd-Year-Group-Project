@@ -20,12 +20,9 @@ Engine::Engine()
 
 	mainView = View(window.getDefaultView());
 
-
 	backgroundTexture.loadFromFile("graphics/back.jpg");
 
 	backgroundTexture.setRepeated(true);
-
-	//sprite for background
 
 	//sf::Sprite backgroundSprite(backgroundTexture, iBounds);
 	backgroundSprite.setTexture(backgroundTexture);
@@ -37,15 +34,17 @@ Engine::Engine()
 
 	//spawns player
 	user.Spawn(startPos, Gravity);
-	enemy.spawn(resolution.x, resolution.y / 2);
+	enemy[0].spawn(resolution.x, resolution.y / 2, resolution.y / 2);
+	currentEnemy = 0;
 
 	// Hide the mouse pointer and replace it with crosshair
-	window.setMouseCursorVisible(false);
+	window.setMouseCursorVisible(true);
 
 	textureCrosshair.loadFromFile("graphics/crosshair.png");
 	spriteCrosshair.setTexture(textureCrosshair);
 	spriteCrosshair.setOrigin(25, 25);
 
+	
 	//for bullets
 	
 	currentBullet = 0;
@@ -93,7 +92,6 @@ void Engine::run()
 			spriteOffset.y = floor(viewOffset.y / backgroundTexture.getSize().y) * backgroundTexture.getSize().y;
 			//sets the background position
 			backgroundSprite.setPosition(spriteStart - spriteOffset);
-
 		}	
 
 		input();
@@ -104,13 +102,22 @@ void Engine::run()
 			user.input();
 			user.update(dt.asSeconds());
 			//updates enemy
-			enemy.update(dt.asSeconds(), user.getCenter());
-			if (
-				user.detectCollisions(enemy.getPosition())//check for collision between player and enemy
-				)
+			for (int i = 0; i < 19; i++)
 			{
-				enemy.hit();
-			}
+				if (enemy[i].isAlive())
+				{
+					enemy[i].update(dt.asSeconds(), user.getCenter());
+					if (user.detectCollisions(enemy[i].getPosition()))//check for collision between player and enemy)
+					{
+						enemy[i].hit();
+						user.setHealth(user.getHealth() - 1);
+					}
+				}
+				if (enemy[i].getPosition().left > 0)
+				{
+					enemy[i].isAlive() == false;
+				}
+			}		
 			//update objects
 			hit.update(dtAsSeconds);
 			thing.update(dtAsSeconds);

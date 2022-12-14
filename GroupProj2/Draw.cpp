@@ -6,13 +6,18 @@ void Engine::draw()
 	window.setView(mainView);
 	window.draw(backgroundSprite);
 	window.draw(user.getSprite());
-	window.draw(enemy.getSprite());
+	for (int i = 0; i < 19; i++)
+	{
+		if (enemy[i].isAlive())
+		{
+			window.draw(enemy[i].getSprite());
+		}
+	}
 	for (int i = 0; i < 100; i++)
 	{
 		if (bullets[i].isBulletActive())
 		{
 			window.draw(bullets[i].getShape());
-
 		}
 	}
 	// Draw the HUD

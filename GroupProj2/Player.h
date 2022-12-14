@@ -40,6 +40,9 @@ public:
 	int getX();
 	int getY();
 
+	int getHealth();
+	void setHealth(int newHealth);
+
 	void setY(int y);
 	void setX(int x);
 

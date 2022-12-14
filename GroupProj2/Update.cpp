@@ -6,20 +6,17 @@ using namespace sf;
 
 void Engine::update(float dtAsSeconds)
 {
+	
 	//updates the frame
 	if (state == State::PLAYING)
 	{
+		resolution.x = resolution.x + user.getSpeed();
+
 		// Where is the mouse pointer
 		mouseScreenPosition = Mouse::getPosition();
 
 		mouseWorldPosition = window.mapPixelToCoords(Mouse::getPosition(), mainView);
-
-		// Set the crosshair to the mouse world location
-		spriteCrosshair.setPosition(mouseWorldPosition);
-
-		// Set the crosshair to the mouse world location
-		spriteCrosshair.setPosition(mouseWorldPosition);
-
+		
 		//update bullets
 		for (int i = 0; i < 100; i++)
 		{
@@ -28,6 +25,40 @@ void Engine::update(float dtAsSeconds)
 				bullets[i].updateBullet(dtAsSeconds);
 			}
 		}
+
+		//checks for enemy/bullet collision
+		
+		for (int i = 0; i < 100; i++)
+		{
+			for (int j = 0; j < currentEnemy+1; j++)
+			{
+				if (bullets[i].isBulletActive() && enemy[j].isAlive())
+				{
+					if (bullets[i].getBulletPosition().intersects(enemy[j].getPosition()))
+					{
+						bullets[i].stopBullet();
+
+						enemy[j].hit();
+
+					}
+				}
+			}
+		}
+
+		int num1 = resolution.y / 2;
+		int randNum = rand() % num1;
+
+		if (enemy[currentEnemy].getTimeSpawn() > 4 || enemy[currentEnemy].isAlive() == false)
+		{
+			currentEnemy++;
+			enemy[currentEnemy].spawn(resolution.x, randNum, resolution.y / 2);
+
+		}
+		if (currentEnemy > 19)
+		{
+			currentEnemy = 0;
+		}
+
 		m_TimeRemaining += dtAsSeconds;
 	}
 	// Time to update the HUD?

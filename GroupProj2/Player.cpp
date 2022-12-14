@@ -107,6 +107,8 @@ bool Player::input()
 	//sets jumped to false
 	m_JustJumped = false;
 
+	unsigned int buttonCount = sf::Joystick::getButtonCount(0);
+	
 	if (Keyboard::isKeyPressed(Keyboard::Space))
 	{
 		//makes sure player is not falling for the jump
@@ -118,11 +120,26 @@ bool Player::input()
 			m_spacePressed = true;
 		}
 	}
+	else if (sf::Joystick::isButtonPressed(0, 0))
+	{
+
+			//makes sure player is not falling for the jump
+			if (!m_IsJumping && !m_IsFalling)
+			{
+				m_IsJumping = true;
+				m_JumpTime = 0;
+				m_JustJumped = true;
+				m_spacePressed = true;
+			}
+	}
+
+	
 	else
 	{
 		m_IsJumping = false;
 		m_IsFalling = true;
 	}
+	
 
 	return m_JustJumped;
 }
@@ -209,6 +226,15 @@ void Player::setY(int y)
 float Player::getSpeed()
 {
 	return m_Speed;
+}
+
+int Player::getHealth()
+{
+	return m_health;
+}
+void Player::setHealth(int newHealth)
+{
+	m_health = newHealth;
 }
 
 //detect collisions - used to check if player collides with 'enemyBlock' rect
