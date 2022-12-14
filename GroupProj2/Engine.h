@@ -5,7 +5,7 @@
 #include "Player.h"
 #include "Enemy.h"
 #include "Pickup.h"
-#include "Obstacle.h"
+#include "Obstacle2.h"
 #include "HUD.h"
 
 using namespace sf;
@@ -56,7 +56,7 @@ private:
 	int starty = 1000;
 
 	Player user;
-	Enemy enemy[20];
+	Enemy enemy[1000];
 
 	Sprite spriteCrosshair;
 	Texture textureCrosshair;
@@ -65,8 +65,11 @@ private:
 	float newY = 0.f;
 
 	int currentEnemy = 0;
+	int currentObstacle = 0;
 
 	Bullet bullets[100];
+
+	//Obstacle2 obstacle;
 
 	Time lastFired;
 

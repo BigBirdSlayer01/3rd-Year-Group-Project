@@ -56,9 +56,6 @@ Engine::Engine()
 
 void Engine::run()
 {
-	Obstacle hit(0);
-	Pickup thing(0);
-
 	//values used to scroll background
 	FloatRect fBounds(0.f, 0.f, (resolution.x * 2.5), (resolution.y));
 
@@ -101,7 +98,7 @@ void Engine::run()
 			user.input();
 			user.update(dt.asSeconds());
 			//updates enemy
-			for (int i = 0; i < 19; i++)
+			for (int i = 0; i < 999; i++)
 			{
 				if (enemy[i].isAlive())
 				{
@@ -109,6 +106,7 @@ void Engine::run()
 					if (user.detectCollisions(enemy[i].getPosition()))//check for collision between player and enemy)
 					{
 						enemy[i].hit();
+						delete[i] enemy;
 						user.setHealth(user.getHealth() - 1);
 					} 
 				}
@@ -117,9 +115,7 @@ void Engine::run()
 					enemy[i].isAlive() == false;
 				}
 			}		
-			//update objects
-			hit.update(dtAsSeconds);
-			thing.update(dtAsSeconds);
+			
 			//updates scene
 			update(dtAsSeconds);
 			draw();

@@ -7,13 +7,21 @@ void Engine::draw()
 	window.draw(backgroundSprite);
 	window.draw(user.getSprite());
 	
-	for (int i = 0; i < 19; i++)
+	for (int i = 0; i < 999; i++)
 	{
 		if (enemy[i].isAlive())
 		{
 			window.draw(enemy[i].getSprite());
 		}
 	}
+	/*
+	for (int i = 0; i < 19; i++)
+	{
+		if (obstacle[i].isSpawned())
+		{
+			window.draw(obstacle[i].getSprite());
+		}
+	}*/
 	for (int i = 0; i < 100; i++)
 	{
 		if (bullets[i].isBulletActive())
@@ -29,6 +37,7 @@ void Engine::draw()
 	{
 		window.draw(m_Hud.getMessage());
 	}
+
 	window.draw(spriteCrosshair);
 	window.setView(m_HudView);
 	window.draw(m_Hud.getScore());

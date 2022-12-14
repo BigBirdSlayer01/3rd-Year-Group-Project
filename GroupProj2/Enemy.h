@@ -38,6 +38,8 @@ public:
 
 	void setPosition(int x, int y);
 
+	void setAlive(bool new1);
+
 	//gets Centre
 	Vector2f getCenter();
 

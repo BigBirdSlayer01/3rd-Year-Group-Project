@@ -1,13 +1,13 @@
-#include "Obstacle.h"
+#include "Obstacle2.h"
 #include "TextureHolder.h"
 #include <iostream>
 #include <ctime>
 #include <cstdlib>
 
-Obstacle::Obstacle(int type)
+Obstacle2::Obstacle2()
 {
 	// Store the type of this Obstacle
-	m_Type = type;
+	m_Type = (rand() % 1) + 1;
 
 	// Associate the texture with the sprite
 	if (m_Type == 1)
@@ -25,17 +25,7 @@ Obstacle::Obstacle(int type)
 	m_Sprite.setOrigin(25, 25);
 }
 
-void Obstacle::setArena(IntRect arena)
-{
-	// Copy the details of the arena to the Obstacle's m_Arena
-	m_Arena.left = arena.left + 50;
-	m_Arena.width = arena.width - 50;
-	m_Arena.top = arena.top + 50;
-	m_Arena.height = arena.height - 50;
-	spawn();
-}
-
-void Obstacle::spawn()
+void Obstacle2::spawn()
 {
 	// Not currently spawned
 	//m_Spawned = false;
@@ -44,22 +34,22 @@ void Obstacle::spawn()
 	m_Sprite.setPosition(500, 975);
 }
 
-FloatRect Obstacle::getPosition()
+FloatRect Obstacle2::getPosition()
 {
 	return m_Sprite.getGlobalBounds();
 }
 
-Sprite Obstacle::getSprite()
+Sprite Obstacle2::getSprite()
 {
 	return m_Sprite;
 }
 
-bool Obstacle::isSpawned()
+bool Obstacle2::isSpawned()
 {
 	return m_Spawned;
 }
 
-void Obstacle::update(float elapsedTime)
+void Obstacle2::update(float elapsedTime)
 {
 	if (m_Spawned)
 	{
@@ -91,7 +81,7 @@ void Obstacle::update(float elapsedTime)
 }
 
 //This function generates a random number to change the type.
-void Obstacle::setType() {
+void Obstacle2::setType() {
 	srand(time(0));
 	m_Type = (rand() % 2);
 }

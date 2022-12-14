@@ -38,6 +38,10 @@ void Engine::update(float dtAsSeconds)
 
 			m_FramesSinceLastHUDUpdate = 0;
 		}
+		/*
+		BaleObstacle(1).update(dtAsSeconds);
+		FenceObstacle(2).update(dtAsSeconds);*/
+		
 		
 		//update bullets
 		for (int i = 0; i < 100; i++)
@@ -47,6 +51,14 @@ void Engine::update(float dtAsSeconds)
 				bullets[i].updateBullet(dtAsSeconds);
 			}
 		}
+		/*
+		for (int i = 0; i < 19; i++)
+		{
+			if (obstacle[i].isSpawned())
+			{
+				obstacle[i].update(dtAsSeconds);
+			}
+		}*/
 
 		//checks for enemy/bullet collision
 		
@@ -61,8 +73,6 @@ void Engine::update(float dtAsSeconds)
 						bullets[i].stopBullet();
 
 						enemy[j].hit();
-
-						
 					}
 				}
 			}
@@ -77,11 +87,22 @@ void Engine::update(float dtAsSeconds)
 			enemy[currentEnemy].spawn(resolution.x, randNum, resolution.y / 2);
 
 		}
-		if (currentEnemy > 19)
+		if (currentEnemy >= 99)
 		{
 			currentEnemy = 0;
 		}
 
+		/*
+		if (obstacle[currentObstacle].isSpawned() == false)
+		{
+			currentObstacle++;
+			obstacle[currentObstacle].spawn();
+
+		}
+		if (currentObstacle > 19)
+		{
+			currentObstacle = 0;
+		}*/
 		m_TimeRemaining += dtAsSeconds;
 	}	
 }

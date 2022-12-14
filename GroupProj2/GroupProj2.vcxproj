@@ -22,6 +22,7 @@
     <ClInclude Include="Bullet.h" />
     <ClInclude Include="Enemy.h" />
     <ClInclude Include="Engine.h" />
+    <ClInclude Include="Obstacle2.h" />
     <ClInclude Include="HUD.h" />
     <ClInclude Include="Obstacle.h" />
     <ClInclude Include="Pickup.h" />
@@ -39,6 +40,7 @@
     <ClCompile Include="ohYeahquestionmarkHUDexclamationMark.cpp" />
     <ClCompile Include="Pickup.cpp" />
     <ClCompile Include="Player.cpp" />
+    <ClCompile Include="Obstacle2.cpp" />
     <ClCompile Include="TextureHolder.cpp" />
     <ClCompile Include="Update.cpp" />
     <ClCompile Include="UpdatePlayer.cpp" />

@@ -106,6 +106,8 @@ void Enemy::update(float elapsedTime, Vector2f playerLocation)
 		}
 	}
 
+
+
 	//officially move sprite
 	m_Sprite.setPosition(m_Position);
 }
@@ -127,4 +129,9 @@ Vector2f Enemy::getCenter()
 		m_Position.x + m_Sprite.getGlobalBounds().width / 2,
 		m_Position.y + m_Sprite.getGlobalBounds().height / 2
 	);
+}
+
+void Enemy::setAlive(bool new1)
+{
+	m_Alive = new1;
 }
