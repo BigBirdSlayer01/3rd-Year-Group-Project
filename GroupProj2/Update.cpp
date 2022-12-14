@@ -45,10 +45,14 @@ void Engine::update(float dtAsSeconds)
 			}
 		}
 
+		int num1 = resolution.y / 2;
+		int randNum = rand() % num1;
+
 		if (enemy[currentEnemy].getTimeSpawn() > 4 || enemy[currentEnemy].isAlive() == false)
 		{
 			currentEnemy++;
-			enemy[currentEnemy].spawn(resolution.x, resolution.y / 2);
+			enemy[currentEnemy].spawn(resolution.x, randNum, resolution.y / 2);
+
 		}
 		if (currentEnemy > 19)
 		{

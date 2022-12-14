@@ -36,10 +36,10 @@ public:
 
 	float getTimeSpawn();
 
-	
+	void setPosition(int x, int y);
 
 	//spawn enemy
-	void spawn(float startX, float startY);
+	void spawn(float startX, float startY, float scale);
 	//rectangular position of enemy in the world
 	FloatRect getPosition();
 	//get the sprite of the enemy - return a copy of the sprite

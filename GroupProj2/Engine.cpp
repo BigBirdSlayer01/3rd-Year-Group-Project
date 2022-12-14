@@ -30,7 +30,7 @@ Engine::Engine()
 
 	//spawns player
 	user.Spawn(startPos, Gravity);
-	enemy[0].spawn(resolution.x, resolution.y / 2);
+	enemy[0].spawn(resolution.x, resolution.y / 2, resolution.y / 2);
 	currentEnemy = 0;
 
 	// Hide the mouse pointer and replace it with crosshair
@@ -106,6 +106,7 @@ void Engine::run()
 					if (user.detectCollisions(enemy[i].getPosition()))//check for collision between player and enemy)
 					{
 						enemy[i].hit();
+						user.setHealth(user.getHealth() - 1);
 					}
 				}
 				if (enemy[i].getPosition().left > 0)

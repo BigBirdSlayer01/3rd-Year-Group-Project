@@ -29,7 +29,7 @@ bool Enemy::isAlive()
 }
 
 //spawn enemy using starter values
-void Enemy::spawn(float startX, float startY)
+void Enemy::spawn(float startX, float startY, float scale)
 {
 	m_SecondsSinceSpawn = 0;
 
@@ -39,13 +39,13 @@ void Enemy::spawn(float startX, float startY)
 
 	//set enemy's size to be dynamic with the screen resolution
 	//total height of screen = startY * 2
-	const float screenHeight = startY * 2;
+	const float screenHeight = scale * 2;
 	//ratio for enemy sprite - sprite image height should be tenth of screen height
 	const float enemySizeRatio = (screenHeight / 20) / 128;//image height - 128pixels
 	//set scale using ratio above
 	m_Sprite.setScale(enemySizeRatio, enemySizeRatio);
 
-	m_Speed = ENEMY_SPEED; //set enemy speed to start speed
+	m_Speed = ENEMY_SPEED + 0.2f; //set enemy speed to start speed
 	m_Health = ENEMY_HEALTH; //set enemy health to start health
 
 	//set enemy's position
@@ -113,4 +113,9 @@ void Enemy::update(float elapsedTime, Vector2f playerLocation)
 float Enemy::getTimeSpawn()
 {
 	return m_SecondsSinceSpawn;
+}
+
+void Enemy::setPosition(int x, int y)
+{
+	m_Sprite.setPosition(x,y);
 }

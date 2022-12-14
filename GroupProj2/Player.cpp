@@ -131,10 +131,8 @@ bool Player::input()
 				m_JustJumped = true;
 				m_spacePressed = true;
 			}
-
-		
 	}
-	
+
 	
 	else
 	{
@@ -228,6 +226,15 @@ void Player::setY(int y)
 float Player::getSpeed()
 {
 	return m_Speed;
+}
+
+int Player::getHealth()
+{
+	return m_health;
+}
+void Player::setHealth(int newHealth)
+{
+	m_health = newHealth;
 }
 
 //detect collisions - used to check if player collides with 'enemyBlock' rect
