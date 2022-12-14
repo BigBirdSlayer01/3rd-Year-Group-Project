@@ -61,6 +61,10 @@ protected:
 	Sprite m_Sprite;
 	//texture
 	Texture m_texture;
+	//rectsource for sprite animation
+	IntRect rectSpriteSource;
+	//animation timer
+	float animationTimer;
 	//health
 	int m_health;
 	//max health will use this for powerups

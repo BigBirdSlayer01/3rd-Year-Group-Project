@@ -17,6 +17,10 @@ private:
 	Sprite m_Sprite;
 	//texture for enemy
 	Texture m_Texture;
+	//rectsource for sprite animation
+	IntRect rectSpriteSource;
+	//animation timer
+	float animationTimer;
 
 	//current speed of enemy
 	float m_Speed;
