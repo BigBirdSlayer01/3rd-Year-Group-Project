@@ -33,10 +33,13 @@ private:
 	Vector2f mouseWorldPosition;
 	Vector2i mouseScreenPosition;
 
-	//background texture
+	//background and floor textures
 	Texture backgroundTexture;
+	Texture floorTexture;
 
+	//background and floor sprites
 	Sprite backgroundSprite;
+	Sprite floorSprite;
 
 	//decalres gravity
 	const int Gravity = 600;

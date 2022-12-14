@@ -5,6 +5,7 @@ void Engine::draw()
 	window.clear();
 	window.setView(mainView);
 	window.draw(backgroundSprite);
+	window.draw(floorSprite);
 	for (int i = 0; i < 100; i++)
 	{
 		if (bullets[i].isBulletActive())
@@ -17,5 +18,6 @@ void Engine::draw()
 	window.draw(user.getArmSprite());
 	window.draw(enemy.getSprite());
 	window.draw(spriteCrosshair);
+
 	window.display();
 }
