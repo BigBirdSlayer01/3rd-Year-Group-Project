@@ -121,6 +121,5 @@ void Engine::run()
 			update(dtAsSeconds);
 			draw();
 		}
-		
 	}
 }
