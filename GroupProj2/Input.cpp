@@ -5,7 +5,6 @@ void Engine::input()
 	Event event;
 	while (window.pollEvent(event))
 	{
-
 		if (event.type == Event::KeyPressed)
 		{
 			if (event.key.code == Keyboard::Return && state == State::PLAYING)
@@ -84,6 +83,7 @@ void Engine::input()
 			window.close();
 		}
 		//move mouse with controller
+
 		if (sf::Joystick::isConnected(0))
 		{
 			//used to move the target

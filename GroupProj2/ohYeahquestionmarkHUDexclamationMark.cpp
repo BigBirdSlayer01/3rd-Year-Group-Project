@@ -20,8 +20,7 @@ Hud::Hud()
 
 	mT_Start.setOrigin(textRect.left +
 		textRect.width / 2.0f,
-		textRect.top +
-		textRect.height / 2.0f);
+		textRect.top + textRect.height / 2.0f);
 
 	mT_Start.setPosition(resolution.x / 2.0f, resolution.y / 2.0f);
 

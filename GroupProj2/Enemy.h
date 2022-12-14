@@ -38,6 +38,9 @@ public:
 
 	void setPosition(int x, int y);
 
+	//gets Centre
+	Vector2f getCenter();
+
 	//spawn enemy
 	void spawn(float startX, float startY, float scale);
 	//rectangular position of enemy in the world
