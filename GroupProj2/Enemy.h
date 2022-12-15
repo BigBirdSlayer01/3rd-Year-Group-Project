@@ -40,6 +40,8 @@ public:
 
 	void setAlive(bool new1);
 
+	void setHealth(float health);
+
 	//gets Centre
 	Vector2f getCenter();
 

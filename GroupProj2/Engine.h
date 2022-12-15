@@ -7,6 +7,9 @@
 #include "Pickup.h"
 #include "Obstacle2.h"
 #include "HUD.h"
+#include <iostream>
+#include <string>
+#include <vector>
 
 using namespace sf;
 
@@ -56,7 +59,9 @@ private:
 	int starty = 1000;
 
 	Player user;
-	Enemy enemy[1000];
+	Enemy* enemy;
+
+	std::vector<Enemy*> enemyVector;
 
 	Sprite spriteCrosshair;
 	Texture textureCrosshair;
@@ -72,6 +77,8 @@ private:
 	//Obstacle2 obstacle;
 
 	Time lastFired;
+
+	Time EnemyLastSpawned;
 
 	//std::vector<Enemy*> EnemyVector;
 

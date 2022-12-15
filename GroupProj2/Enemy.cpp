@@ -135,3 +135,8 @@ void Enemy::setAlive(bool new1)
 {
 	m_Alive = new1;
 }
+
+void Enemy::setHealth(float health)
+{
+	m_Health = health;
+}

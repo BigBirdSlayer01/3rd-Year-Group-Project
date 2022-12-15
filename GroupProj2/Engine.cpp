@@ -33,8 +33,8 @@ Engine::Engine()
 
 	//spawns player
 	user.Spawn(startPos, Gravity);
-	enemy[0].spawn(resolution.x, resolution.y / 2, resolution.y / 2);
 	currentEnemy = 0;
+	
 
 	// Hide the mouse pointer and replace it with crosshair
 	window.setMouseCursorVisible(false);
@@ -98,21 +98,20 @@ void Engine::run()
 			user.input();
 			user.update(dt.asSeconds());
 			//updates enemy
-			for (int i = 0; i < 999; i++)
+			for (auto it = begin(enemyVector); it != end(enemyVector); ++it)
 			{
-				if (enemy[i].isAlive())
+				if ((*it)->isAlive())
 				{
-					enemy[i].update(dt.asSeconds(), user.getCenter());
-					if (user.detectCollisions(enemy[i].getPosition()))//check for collision between player and enemy)
+					(*it)->update(dt.asSeconds(), user.getCenter());
+					if (user.detectCollisions((*it)->getPosition()))//check for collision between player and enemy)
 					{
-						enemy[i].hit();
-						delete[i] enemy;
+						(*it)->hit();
 						user.setHealth(user.getHealth() - 1);
 					} 
 				}
-				if (enemy[i].getPosition().left > 0)
+				if ((*it)->getPosition().left > 0)
 				{
-					enemy[i].isAlive() == false;
+					(*it)->isAlive() == false;
 				}
 			}		
 			

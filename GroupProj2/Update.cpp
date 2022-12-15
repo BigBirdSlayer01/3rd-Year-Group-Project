@@ -18,7 +18,7 @@ void Engine::update(float dtAsSeconds)
 	{
 		// Time to update the HUD?
 		// Increment the number of frames since the last HUD calculation
-		
+
 		m_FramesSinceLastHUDUpdate++;
 
 		// Update the HUD every m_TargetFramesPerHUDUpdate frames
@@ -41,8 +41,8 @@ void Engine::update(float dtAsSeconds)
 		/*
 		BaleObstacle(1).update(dtAsSeconds);
 		FenceObstacle(2).update(dtAsSeconds);*/
-		
-		
+
+
 		//update bullets
 		for (int i = 0; i < 100; i++)
 		{
@@ -61,18 +61,18 @@ void Engine::update(float dtAsSeconds)
 		}*/
 
 		//checks for enemy/bullet collision
-		
+
 		for (int i = 0; i < 100; i++)
 		{
-			for (int j = 0; j < currentEnemy+1; j++)
+			for (auto it = begin(enemyVector); it != end(enemyVector); ++it)
 			{
-				if (bullets[i].isBulletActive() && enemy[j].isAlive())
+				if (bullets[i].isBulletActive() && (*it)->isAlive())
 				{
-					if (bullets[i].getBulletPosition().intersects(enemy[j].getPosition()))
+					if (bullets[i].getBulletPosition().intersects((*it)->getPosition()))
 					{
 						bullets[i].stopBullet();
 
-						enemy[j].hit();
+						(*it)->hit();
 					}
 				}
 			}
@@ -81,16 +81,46 @@ void Engine::update(float dtAsSeconds)
 		int num1 = resolution.y / 2;
 		int randNum = rand() % num1;
 
-		if (enemy[currentEnemy].getTimeSpawn() > 4 || enemy[currentEnemy].isAlive() == false)
+		if (totalGameTime.asMilliseconds() - EnemyLastSpawned.asMilliseconds() > 4000)
 		{
-			currentEnemy++;
-			enemy[currentEnemy].spawn(resolution.x, randNum, resolution.y / 2);
+			//for (auto it = begin(enemyVector); it != end(enemyVector); ++it)
+			//{
+				Enemy* enemy1 = new Enemy;
+				(*enemy1).spawn(resolution.x, randNum, resolution.y / 2);
+				enemyVector.push_back(enemy1);
+				currentEnemy++;
+				EnemyLastSpawned = totalGameTime;
+			//}
+		}
+		
+		auto itr = enemyVector.begin();
+		while (itr != enemyVector.end())
+		{
+			bool isHere = (*itr)->isAlive();
+			if (!isHere)
+			{
+				itr = enemyVector.erase(itr);
+				if (itr != enemyVector.begin())
+				{
+					itr = std::prev(itr);
+					continue;
+				}
+			}
+			else
+			{
+				++itr;
+			}
+		}
 
-		}
-		if (currentEnemy >= 99)
+		/*
+		for (auto it = enemyVector.begin(); it != enemyVector.end(); it++)
 		{
-			currentEnemy = 0;
-		}
+			bool isHere = (*it)->isAlive();
+			if (!isHere)
+			{
+				enemyVector.erase(it--);
+			}
+		}*/
 
 		/*
 		if (obstacle[currentObstacle].isSpawned() == false)
@@ -104,5 +134,5 @@ void Engine::update(float dtAsSeconds)
 			currentObstacle = 0;
 		}*/
 		m_TimeRemaining += dtAsSeconds;
-	}	
+	}
 }

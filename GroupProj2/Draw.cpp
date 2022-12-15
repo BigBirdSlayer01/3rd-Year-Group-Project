@@ -7,11 +7,11 @@ void Engine::draw()
 	window.draw(backgroundSprite);
 	window.draw(user.getSprite());
 	
-	for (int i = 0; i < 999; i++)
+	for (auto it = begin(enemyVector); it != end(enemyVector); ++it)
 	{
-		if (enemy[i].isAlive())
+		if ((*it)->isAlive())
 		{
-			window.draw(enemy[i].getSprite());
+			window.draw((*it)->getSprite());
 		}
 	}
 	/*
