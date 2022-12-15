@@ -113,16 +113,6 @@ void Engine::update(float dtAsSeconds)
 		}
 
 		/*
-		for (auto it = enemyVector.begin(); it != enemyVector.end(); it++)
-		{
-			bool isHere = (*it)->isAlive();
-			if (!isHere)
-			{
-				enemyVector.erase(it--);
-			}
-		}*/
-
-		/*
 		if (obstacle[currentObstacle].isSpawned() == false)
 		{
 			currentObstacle++;

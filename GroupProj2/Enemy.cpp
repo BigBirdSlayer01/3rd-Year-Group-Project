@@ -13,8 +13,8 @@ bool Enemy::hit()
 	if (m_Health < 0)
 	{
 		m_Alive = false; //its dead
-		m_Texture.loadFromFile("graphics/chicken_base.png");
-		m_Sprite.setTexture(m_Texture);
+		//m_Texture.loadFromFile("graphics/chicken_base.png");
+		//m_Sprite.setTexture(m_Texture);
 
 		return true;
 	}
@@ -31,17 +31,19 @@ bool Enemy::isAlive()
 //spawn enemy using starter values
 void Enemy::spawn(float startX, float startY, float scale)
 {
-	m_SecondsSinceSpawn = 0;
-
+	animationTimer = 0;
 	//setting enemy's texture and sprite
-	m_Texture.loadFromFile("graphics/chicken_base.png");
-	m_Sprite = Sprite(m_Texture);
+	m_Texture.loadFromFile("graphics/chicken_anim.png");
+	rectSpriteSource = IntRect(0, 0, 128, 128);
+	m_Sprite = Sprite(m_Texture, rectSpriteSource);
+
+	m_SecondsSinceSpawn = 0;
 
 	//set enemy's size to be dynamic with the screen resolution
 	//total height of screen = startY * 2
 	const float screenHeight = scale * 2;
 	//ratio for enemy sprite - sprite image height should be tenth of screen height
-	const float enemySizeRatio = (screenHeight / 20) / 128;//image height - 128pixels
+	const float enemySizeRatio = (screenHeight / 12) / 128;//image height - 128pixels
 	//set scale using ratio above
 	m_Sprite.setScale(enemySizeRatio, enemySizeRatio);
 
@@ -52,8 +54,12 @@ void Enemy::spawn(float startX, float startY, float scale)
 	m_Position.x = startX;
 	m_Position.y = startY;
 
-	m_Sprite.setOrigin(64, 64);
 	m_Sprite.setPosition(m_Position);
+	m_Sprite.setOrigin(
+		rectSpriteSource.left + rectSpriteSource.width / 2,
+		rectSpriteSource.top + rectSpriteSource.height / 2
+	);
+	
 }
 
 //return enemy's sprite position
@@ -70,6 +76,25 @@ Sprite Enemy::getSprite()
 
 void Enemy::update(float elapsedTime, Vector2f playerLocation)
 {
+	/* ANIMATION */
+	//update animation timer
+	animationTimer += elapsedTime;
+	double timePerFrame = 1.0 / 6.0;
+	if (animationTimer > timePerFrame) //if max time to display frame has been exceeded
+	{
+		//update frame stored in rectSpriteSource
+		if (rectSpriteSource.left == 128)
+		{
+			rectSpriteSource.left = 0;
+		}
+		else
+		{
+			rectSpriteSource.left = 128;
+		}
+		animationTimer = 0;
+	}
+
+	//update position
 	float playerX = playerLocation.x;
 	float playerY = playerLocation.y;
 
@@ -110,6 +135,9 @@ void Enemy::update(float elapsedTime, Vector2f playerLocation)
 
 	//officially move sprite
 	m_Sprite.setPosition(m_Position);
+
+	//set enemy texture
+	m_Sprite.setTextureRect(rectSpriteSource);
 }
 
 float Enemy::getTimeSpawn()
