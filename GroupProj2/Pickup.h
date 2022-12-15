@@ -1,5 +1,4 @@
 #pragma once
-#pragma once
 #include <SFML/Graphics.hpp>
 
 using namespace sf;
@@ -7,23 +6,22 @@ using namespace sf;
 class Pickup
 {
 private:
-	//Start value for health Pickups
-	const int HEALTH_START_VALUE = 3;
+	//Start value for health pickups
+	const int HEALTH_START_VALUE = 50;
 	const int AMMO_START_VALUE = 12;
 	const int START_WAIT_TIME = 10;
 	const int START_SECONDS_TO_LIVE = 5;
 
-	// The sprite that represents this Pickup
+	// The sprite that represents this pickup
 	Sprite m_Sprite;
 
-	// The arena it exists in
-	IntRect m_Arena;
+	Texture m_Texture;
 
-	// How much is this Pickup worth?
+	// How much is this pickup worth?
 	int m_Value;
 
-	// What type of Pickup is this? 
-	// 1 = health, 2 = ammo, 3 = bale, 4 = plane
+	// What type of pickup is this? 
+	// 1 = health, 2 = ammo
 	int m_Type;
 
 	// Handle spawning and disappearing
@@ -36,29 +34,29 @@ private:
 	// Public prototypes go here
 public:
 
-	Pickup(int type);
-
-	// Prepare a new Pickup
-	void setArena(IntRect arena);
+	Pickup();
 
 	void spawn();
 
-	// Check the position of a Pickup
+	// Check the position of a pickup
 	FloatRect getPosition();
 
 	// Get the sprite for drawing
 	Sprite getSprite();
 
-	// Let the Pickup update itself each frame
+	// Let the pickup update itself each frame
 	void update(float elapsedTime);
 
-	// Is this Pickup currently spawned?
+	// Is this pickup currently spawned?
 	bool isSpawned();
 
-	// Get the goodness from the Pickup
+	// Get the goodness from the pickup
 	int gotIt();
 
-	// Upgrade the value of each Pickup
+	// Upgrade the value of each pickup
 	void upgrade();
 
 };
+
+
+

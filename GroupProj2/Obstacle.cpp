@@ -4,11 +4,12 @@
 #include <ctime>
 #include <cstdlib>
 
-Obstacle::Obstacle(int type)
+Obstacle::Obstacle()
 {
 	// Store the type of this Obstacle
-	m_Type = type;
-
+	srand(time(0));
+	m_Type = (rand() % 2);
+	
 	// Associate the texture with the sprite
 	if (m_Type == 1)
 	{
@@ -83,7 +84,7 @@ void Obstacle::update(float elapsedTime)
 	if (m_SecondsSinceDeSpawn > m_SecondsToWait && !m_Spawned)
 	{
 		//Randomly change the type to spice up the game
-		setType();
+		//setType();
 		// spawn the Obstacle and reset the timer
 		spawn();
 	}
@@ -92,6 +93,5 @@ void Obstacle::update(float elapsedTime)
 
 //This function generates a random number to change the type.
 void Obstacle::setType() {
-	srand(time(0));
-	m_Type = (rand() % 2);
+	
 }
