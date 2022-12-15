@@ -42,9 +42,6 @@
     <ClInclude Include="Obstacle2.h">
       <Filter>Header Files</Filter>
     </ClInclude>
-    <ClInclude Include="PlayerArms.h">
-      <Filter>Header Files</Filter>
-    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="Bullet.cpp">
@@ -87,9 +84,6 @@
       <Filter>Source Files</Filter>
     </ClCompile>
     <ClCompile Include="Obstacle2.cpp">
-      <Filter>Source Files</Filter>
-    </ClCompile>
-    <ClCompile Include="PlayerArms.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
   </ItemGroup>

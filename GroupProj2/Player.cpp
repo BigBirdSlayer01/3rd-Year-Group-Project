@@ -18,21 +18,17 @@ void Player::Spawn(Vector2f startPosition, float gravity, Vector2f resolution)
 	// Initialize the gravity
 	m_Gravity = gravity;
 
+	//set origin to center
+	m_Sprite.setOrigin(64, 64);
+
 	// Move the sprite in to position
 	m_Sprite.setPosition(m_Position);
 
 	m_Sprite.setScale(playerSizeRatio, playerSizeRatio);
 
-	m_texture.loadFromFile("graphics/Farmer_anim_full.png");
-	rectSpriteSource = IntRect(0, 0, 128, 128);
-	m_Sprite = Sprite(m_texture, rectSpriteSource);
+	m_texture.loadFromFile("graphics/Farmer.png");
 
-	//set origin to center
-	m_Sprite.setOrigin(
-		rectSpriteSource.left + rectSpriteSource.width / 2,
-		rectSpriteSource.top + rectSpriteSource.height / 2
-	);
-
+	m_Sprite.setTexture(m_texture);
 
 	m_JumpDuration = .67;
 
@@ -50,36 +46,19 @@ void Player::Spawn(Vector2f startPosition, float gravity, Vector2f resolution)
 
 void Player::update(float elapsedTime, Vector2f targetCoords)
 {
-	animationTimer += elapsedTime;
-	double timePerFrame = 1.0 / 6.0;
-	if ((animationTimer > timePerFrame) && !isHit)
-	{
-		if (rectSpriteSource.left == 384)
-		{
-			rectSpriteSource.left = 0;
-		}
-		else
-		{
-			rectSpriteSource.left += 128;
-		}
-		animationTimer = 0;
-	}
-
 	m_Position.x += m_Speed;
 
 	//for jump will have to change to suit game speed
 	if (m_IsJumping)
 	{
 		m_JumpTime += elapsedTime;
-		rectSpriteSource.left = 0;
-		rectSpriteSource.top = 128;
+
 		if (m_JumpTime < m_JumpDuration)
 		{
 			m_Position.y -= 250 * 2 * elapsedTime;
 		}
 		else if(m_JumpTime > m_JumpDuration)
 		{
-			rectSpriteSource.top = 0;
 			m_IsJumping = false;
 			m_IsFalling = true;
 		}
@@ -88,13 +67,11 @@ void Player::update(float elapsedTime, Vector2f targetCoords)
 	// Apply gravity
 	if (m_IsFalling)
 	{
-		rectSpriteSource.top = 0;
 		m_Position.y += m_Gravity * elapsedTime;
 	}
 
 	if (m_Position.y > m_startY)
 	{
-		rectSpriteSource.top = 0;
 		m_Position.y = m_startY;
 		m_IsFalling = false;
 	}
@@ -130,8 +107,6 @@ void Player::update(float elapsedTime, Vector2f targetCoords)
 
 	// Move the sprite into position
 	m_Sprite.setPosition(m_Position);
-	//set texture
-	m_Sprite.setTextureRect(rectSpriteSource);
 
 	if (isHit == true)//if player has been hit - call hit function
 	{
@@ -325,7 +300,7 @@ void Player::hit()
 		}
 		else
 		{
-			m_texture.loadFromFile("graphics/Farmer_anim_full.png");
+			m_texture.loadFromFile("graphics/Farmer.png");
 			isFlashing = true;
 		}
 		//after 10 flashes, reset sprite image to default and boolean values to false
@@ -333,7 +308,7 @@ void Player::hit()
 		{
 			isHit = false;
 			isFlashing = false;
-			m_texture.loadFromFile("graphics/Farmer_anim_full.png");
+			m_texture.loadFromFile("graphics/Farmer.png");
 		}
 		m_Sprite.setTexture(m_texture);
 	}

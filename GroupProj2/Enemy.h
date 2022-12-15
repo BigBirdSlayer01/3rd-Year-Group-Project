@@ -28,11 +28,6 @@ private:
 	//time since the enemy was spawned
 	float m_SecondsSinceSpawn;
 
-	//rectsource for sprite animation
-	IntRect rectSpriteSource;
-	//animation timer
-	float animationTimer;
-
 public:
 	//called when bullet hits enemy
 	bool hit();//will return true when enemy is dead

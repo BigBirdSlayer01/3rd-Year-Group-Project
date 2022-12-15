@@ -27,11 +27,6 @@ public:
 	FloatRect getLeft();
 	FloatRect getRight();
 
-	//rectsource for sprite animation
-	IntRect rectSpriteSource;
-	//animation timer
-	float animationTimer;
-
 	//for use in main
 	Sprite getSprite();
 	Sprite getArmSprite();

@@ -5,7 +5,15 @@ void Engine::draw()
 	window.clear();
 	window.setView(mainView);
 	window.draw(backgroundSprite);
-	window.draw(floorSprite);
+	window.draw(user.getSprite());
+	
+	for (auto it = begin(enemyVector); it != end(enemyVector); ++it)
+	{
+		if ((*it)->isAlive())
+		{
+			window.draw((*it)->getSprite());
+		}
+	}
 	/*
 	for (int i = 0; i < 19; i++)
 	{
@@ -21,15 +29,7 @@ void Engine::draw()
 			window.draw(bullets[i].getShape());
 		}
 	}
-	window.draw(user.getSprite());
-	window.draw(user.getArmSprite());
-	for (auto it = begin(enemyVector); it != end(enemyVector); ++it)
-	{
-		if ((*it)->isAlive())
-		{
-			window.draw((*it)->getSprite());
-		}
-	}
+
 	// Draw the HUD
 	// Switch to m_HudView
 	
