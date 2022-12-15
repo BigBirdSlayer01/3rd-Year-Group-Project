@@ -31,12 +31,8 @@ void Engine::input()
 			{
 				if (event.key.code == Keyboard::R)
 				{
-					//Reload Delay
-					for (int i = 0; i < 201; i++) {
-						if (i == 200) {
-							bulletsInClip = clipsize;
-						}
-					}
+					bulletsInClip = clipsize;
+					//insert sound for reload here
 				}
 			}
 		}
@@ -80,12 +76,7 @@ void Engine::input()
 		//reloads
 		if ((sf::Joystick::isButtonPressed(0, 1)))
 		{
-			for (int i = 0; i < 10000; i++) {
-				if (i = 10000) {
-					bulletsInClip = clipsize;
-				}
-			}
-			
+			bulletsInClip = clipsize;
 		}
 		if ((sf::Joystick::isButtonPressed(0, 7)))
 		{
@@ -101,7 +92,7 @@ void Engine::input()
 
 			newX = newX + user.getSpeed();
 
-			
+
 			if ((sf::Joystick::getAxisPosition(0, sf::Joystick::U) < -20))
 			{
 				newX--;

@@ -1,14 +1,10 @@
 #include "Engine.h"
-#include <sstream>
-#include "TextureHolder.h"
 
 
 Engine::Engine()
 {
 	//enum for the games state
 	state = State::GAME_OVER;
-
-	TextureHolder holder;
 
 	resolution.x = VideoMode::getDesktopMode().width;
 	resolution.y = VideoMode::getDesktopMode().height;
@@ -32,15 +28,23 @@ Engine::Engine()
 	backgroundSprite.setTexture(backgroundTexture);
 	//scaling background to screen
 	float screenBackgroundYRatio = resolution.y / 677;
-	backgroundSprite.setScale(1.0f,screenBackgroundYRatio);
+	backgroundSprite.setScale(1.0f, screenBackgroundYRatio);
 	//floorY value - this variable will hold Y value of the ground level
-	float floorY = resolution.y * 0.7; // 0.7 of screen size
+	float floorY = resolution.y * 0.65; // 0.7 of screen size
 	//declares start position
 	Vector2f startPos(150, floorY);
 
+	//create floor sprite
+	floorTexture.loadFromFile("graphics/Floor.png");
+	floorTexture.setRepeated(true);
+	floorSprite.setTexture(floorTexture);
+	floorSprite.setScale(1.0f, screenBackgroundYRatio);
+	//position floor
+	floorSprite.setPosition(0.0, resolution.y * 0.7);//0.7 of resolution down on screen
+
 	//spawns player
 	user.Spawn(startPos, Gravity, resolution);
-	enemy.spawn(resolution.x, resolution.y / 2);
+	//enemy.spawn(resolution.x, resolution.y / 2);
 
 	// Hide the mouse pointer and replace it with crosshair
 	window.setMouseCursorVisible(false);
@@ -49,25 +53,19 @@ Engine::Engine()
 	spriteCrosshair.setTexture(textureCrosshair);
 	spriteCrosshair.setOrigin(25, 25);
 
-	
+
 	//for bullets
-	
+
 	currentBullet = 0;
 	clipsize = 6;
 	bulletsInClip = 6;
 	fireRate = 1;
-	
-	
+
+
 }// End Engine constructor
 
 void Engine::run()
 {
-	Pickup* healthPtr = new Pickup();
-	//Pickup ammoPickup(0);
-	//bale.setType();
-	//Obstacle trough(1);
-	
-
 	//values used to scroll background
 	FloatRect fBounds(0.f, 0.f, (resolution.x * 2.8), (resolution.y));
 
@@ -77,6 +75,14 @@ void Engine::run()
 
 	const sf::Vector2f viewStart(fBounds.left + (fBounds.width / 2), fBounds.top + (fBounds.height / 2));
 	const sf::Vector2f spriteStart(fBounds.left, fBounds.top);
+
+	//values used to scroll floor
+	FloatRect floorBounds(0.f, 0.f, (resolution.x * 2.8), resolution.y * 0.7);
+	IntRect iFloorBounds(floorBounds);
+	floorSprite.setTextureRect(iFloorBounds);
+
+	const sf::Vector2f viewFloorStart(floorBounds.left + (floorBounds.width / 2), floorBounds.top + floorBounds.height);
+	const sf::Vector2f spriteFloorStart(floorBounds.left, floorBounds.top + floorBounds.height);
 
 	while (window.isOpen())
 	{
@@ -92,7 +98,7 @@ void Engine::run()
 			//moves the x value of the view by 0.2f (value may be changed to suit the game)
 			mainView.move(user.getSpeed(), 0.0f);
 			//sets the offset of the view
-			const sf::Vector2f viewOffset(viewStart - mainView.getCenter());
+			sf::Vector2f viewOffset(viewStart - mainView.getCenter());
 			//creates the sprite offset
 			sf::Vector2f spriteOffset;
 			//sets the x and y offsets so both can be moved
@@ -100,19 +106,23 @@ void Engine::run()
 			spriteOffset.y = floor(viewOffset.y / backgroundTexture.getSize().y) * backgroundTexture.getSize().y;
 			//sets the background position
 			backgroundSprite.setPosition(spriteStart - spriteOffset);
-		}	
+
+			/* FLOOR */
+			viewOffset = viewFloorStart - mainView.getCenter(); //reset offset for floor
+			//sets the x and y offsets so both can be moved
+			spriteOffset.x = floor(viewOffset.x / floorTexture.getSize().x) * floorTexture.getSize().x;
+			spriteOffset.y = floor(viewOffset.y / floorTexture.getSize().y) * floorTexture.getSize().y;
+			//sets the floor position
+			floorSprite.setPosition(spriteFloorStart - spriteOffset);
+		}
 
 		input();
-	
+
 		if (state == State::PLAYING)
 		{
 			//update player
 			user.input();
 			user.update(dt.asSeconds(), mouseWorldPosition);
-			user.update(dt.asSeconds());
-
-			healthPtr->update(dtAsSeconds);
-			//ammoPickup.update(dtAsSeconds);
 			//updates enemy
 			for (auto it = begin(enemyVector); it != end(enemyVector); ++it)
 			{
@@ -122,40 +132,18 @@ void Engine::run()
 					if (user.detectCollisions((*it)->getPosition()))//check for collision between player and enemy)
 					{
 						(*it)->hit();
-						//The enemy. hit function is called twice as otherwise they can double hit the player and take 2 health
-						enemy[i].hit();
 						user.setHealth(user.getHealth() - 1);
-					} 
-						enemy[i].hit();
-						user.setHealth(-1);
-						user.setScore(-5);
 					}
 				}
 				if ((*it)->getPosition().left > 0)
 				{
 					(*it)->isAlive() == false;
 				}
-			}		
-			
-			}	
-			//updates scene
-			// Draw the pickups is currently spawned
-			/*if (ammoPickup.isSpawned())
-			{
-				window.draw(ammoPickup.getSprite());
-			}*/
-			healthPtr->spawn();
 
-			//if the pickup is spawned, draw the sprite so it appears on screen
-			if (healthPtr->isSpawned())
-			{
-				std::stringstream ssBullets;
 
-				ssBullets << "The health Pickup has been attempted to be drawn" << clipsize;
-				m_Hud.setBullet(ssBullets.str());
-				window.draw(healthPtr->getSprite());
 			}
 
+			//updates scene
 			update(dtAsSeconds);
 			draw();
 		}

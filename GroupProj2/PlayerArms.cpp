@@ -33,7 +33,7 @@ bool PlayerArms::update(Vector2f new_Position, Vector2f newTargetCoords, Vector2
 		targetCoords.x - arm_Position.x)
 		* 180) / 3.141;
 	m_Sprite.setRotation(angle);
-	if ((angle > 90) || (angle<-90))
+	if ((angle > 90) || (angle < -90))
 	{
 		m_Sprite.setScale(armSizeRatio, -armSizeRatio);
 		return false;

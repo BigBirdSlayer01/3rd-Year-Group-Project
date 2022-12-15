@@ -10,7 +10,7 @@ void Bullet::shootBullet(float startX, float startY, float targetX, float target
 {
 	m_BulletActive = true;
 	m_BulletPosition.x = startX;
-	m_BulletPosition.y = startY - startY*0.02;
+	m_BulletPosition.y = startY - startY * 0.02;
 
 	//gradient of the flight
 	float gradient = ((startX - targetX) / (startY - targetY));

@@ -26,7 +26,7 @@ private:
 	// Public prototypes go here
 public:
 
-	Obstacle();
+	Obstacle(int type);
 
 	// Prepare a new Obstacle
 	void setArena(IntRect arena);

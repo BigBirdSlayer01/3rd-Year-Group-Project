@@ -18,17 +18,21 @@ void Player::Spawn(Vector2f startPosition, float gravity, Vector2f resolution)
 	// Initialize the gravity
 	m_Gravity = gravity;
 
-	//set origin to center
-	m_Sprite.setOrigin(64, 64);
-
 	// Move the sprite in to position
 	m_Sprite.setPosition(m_Position);
 
 	m_Sprite.setScale(playerSizeRatio, playerSizeRatio);
 
-	m_texture.loadFromFile("graphics/Farmer.png");
+	m_texture.loadFromFile("graphics/Farmer_anim_full.png");
+	rectSpriteSource = IntRect(0, 0, 128, 128);
+	m_Sprite = Sprite(m_texture, rectSpriteSource);
 
-	m_Sprite.setTexture(m_texture);
+	//set origin to center
+	m_Sprite.setOrigin(
+		rectSpriteSource.left + rectSpriteSource.width / 2,
+		rectSpriteSource.top + rectSpriteSource.height / 2
+	);
+
 
 	m_JumpDuration = .67;
 
@@ -38,27 +42,40 @@ void Player::Spawn(Vector2f startPosition, float gravity, Vector2f resolution)
 	m_resolution.x = resolution.x;
 	m_resolution.y = resolution.y;
 
-
-	m_health = 3;
-
-	m_Score = 0;
 }
 
 void Player::update(float elapsedTime, Vector2f targetCoords)
 {
+	animationTimer += elapsedTime;
+	double timePerFrame = 1.0 / 6.0;
+	if ((animationTimer > timePerFrame) && !isHit)
+	{
+		if (rectSpriteSource.left == 384)
+		{
+			rectSpriteSource.left = 0;
+		}
+		else
+		{
+			rectSpriteSource.left += 128;
+		}
+		animationTimer = 0;
+	}
+
 	m_Position.x += m_Speed;
 
 	//for jump will have to change to suit game speed
 	if (m_IsJumping)
 	{
 		m_JumpTime += elapsedTime;
-
+		rectSpriteSource.left = 0;
+		rectSpriteSource.top = 128;
 		if (m_JumpTime < m_JumpDuration)
 		{
 			m_Position.y -= 250 * 2 * elapsedTime;
 		}
-		else if(m_JumpTime > m_JumpDuration)
+		else if (m_JumpTime > m_JumpDuration)
 		{
+			rectSpriteSource.top = 0;
 			m_IsJumping = false;
 			m_IsFalling = true;
 		}
@@ -67,11 +84,13 @@ void Player::update(float elapsedTime, Vector2f targetCoords)
 	// Apply gravity
 	if (m_IsFalling)
 	{
+		rectSpriteSource.top = 0;
 		m_Position.y += m_Gravity * elapsedTime;
 	}
 
 	if (m_Position.y > m_startY)
 	{
+		rectSpriteSource.top = 0;
 		m_Position.y = m_startY;
 		m_IsFalling = false;
 	}
@@ -107,6 +126,8 @@ void Player::update(float elapsedTime, Vector2f targetCoords)
 
 	// Move the sprite into position
 	m_Sprite.setPosition(m_Position);
+	//set texture
+	m_Sprite.setTextureRect(rectSpriteSource);
 
 	if (isHit == true)//if player has been hit - call hit function
 	{
@@ -116,7 +137,7 @@ void Player::update(float elapsedTime, Vector2f targetCoords)
 	//update arms
 	if (arms->update(m_Position, targetCoords, m_resolution) == true)
 	{
-		m_Sprite.setScale(playerSizeRatio,playerSizeRatio);
+		m_Sprite.setScale(playerSizeRatio, playerSizeRatio);
 	}
 	else
 	{
@@ -131,7 +152,7 @@ bool Player::input()
 	m_JustJumped = false;
 
 	unsigned int buttonCount = sf::Joystick::getButtonCount(0);
-	
+
 	if (Keyboard::isKeyPressed(Keyboard::Space))
 	{
 		//makes sure player is not falling for the jump
@@ -146,23 +167,23 @@ bool Player::input()
 	else if (sf::Joystick::isButtonPressed(0, 0))
 	{
 
-			//makes sure player is not falling for the jump
-			if (!m_IsJumping && !m_IsFalling)
-			{
-				m_IsJumping = true;
-				m_JumpTime = 0;
-				m_JustJumped = true;
-				m_spacePressed = true;
-			}
+		//makes sure player is not falling for the jump
+		if (!m_IsJumping && !m_IsFalling)
+		{
+			m_IsJumping = true;
+			m_JumpTime = 0;
+			m_JustJumped = true;
+			m_spacePressed = true;
+		}
 	}
 
-	
+
 	else
 	{
 		m_IsJumping = false;
 		m_IsFalling = true;
 	}
-	
+
 
 	return m_JustJumped;
 }
@@ -176,7 +197,7 @@ FloatRect Player::getPosition()
 
 Vector2f Player::getCenter()
 {
-	return Vector2f(m_Position.x,m_Position.y);
+	return Vector2f(m_Position.x, m_Position.y);
 }
 
 FloatRect Player::getBottom()
@@ -260,17 +281,7 @@ int Player::getHealth()
 }
 void Player::setHealth(int newHealth)
 {
-	m_health += newHealth;
-}
-
-int Player::getScore()
-{
-	return m_Score;
-}
-void Player::setScore(int scoreUp)
-{
-	m_Score += scoreUp;
-
+	m_health = newHealth;
 }
 
 //detect collisions - used to check if player collides with 'enemyBlock' rect
@@ -300,7 +311,7 @@ void Player::hit()
 		}
 		else
 		{
-			m_texture.loadFromFile("graphics/Farmer.png");
+			m_texture.loadFromFile("graphics/Farmer_anim_full.png");
 			isFlashing = true;
 		}
 		//after 10 flashes, reset sprite image to default and boolean values to false
@@ -308,7 +319,7 @@ void Player::hit()
 		{
 			isHit = false;
 			isFlashing = false;
-			m_texture.loadFromFile("graphics/Farmer.png");
+			m_texture.loadFromFile("graphics/Farmer_anim_full.png");
 		}
 		m_Sprite.setTexture(m_texture);
 	}

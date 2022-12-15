@@ -5,15 +5,7 @@ void Engine::draw()
 	window.clear();
 	window.setView(mainView);
 	window.draw(backgroundSprite);
-	window.draw(user.getSprite());
-	
-	for (auto it = begin(enemyVector); it != end(enemyVector); ++it)
-	{
-		if ((*it)->isAlive())
-		{
-			window.draw((*it)->getSprite());
-		}
-	}
+	window.draw(floorSprite);
 	/*
 	for (int i = 0; i < 19; i++)
 	{
@@ -29,10 +21,18 @@ void Engine::draw()
 			window.draw(bullets[i].getShape());
 		}
 	}
-
+	window.draw(user.getSprite());
+	window.draw(user.getArmSprite());
+	for (auto it = begin(enemyVector); it != end(enemyVector); ++it)
+	{
+		if ((*it)->isAlive())
+		{
+			window.draw((*it)->getSprite());
+		}
+	}
 	// Draw the HUD
 	// Switch to m_HudView
-	
+
 	if (state != State::PLAYING)
 	{
 		window.draw(m_Hud.getMessage());
@@ -43,6 +43,6 @@ void Engine::draw()
 	window.draw(m_Hud.getScore());
 	window.draw(m_Hud.getTime());
 	// Draw the particle system
-	
+
 	window.display();
 }

@@ -43,14 +43,17 @@ private:
 	//total game time - could be used for high score
 	Time totalGameTime;
 
+	//background and floor textures
+	Texture backgroundTexture;
+	Texture floorTexture;
+
+	//background and floor sprites
+	Sprite backgroundSprite;
+	Sprite floorSprite;
+
 	//both mouse position vectors required
 	Vector2f mouseWorldPosition;
 	Vector2i mouseScreenPosition;
-
-	//background texture
-	Texture backgroundTexture;
-
-	Sprite backgroundSprite;
 
 	//decalres gravity
 	const int Gravity = 600;
