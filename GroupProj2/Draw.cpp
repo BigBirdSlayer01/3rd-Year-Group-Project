@@ -20,11 +20,20 @@ void Engine::draw()
 			window.draw(bullets[i].getShape());
 		}
 	}
+
+	/* Draw the pickups is currently spawned
+	if (ammoPickup.isSpawned())
+	{
+		window.draw(ammoPickup.getSprite());
+	}*/
+	
 	// Draw the HUD
 // Switch to m_HudView
 	window.setView(m_HudView);
 	window.draw(m_Hud.getScore());
 	window.draw(m_Hud.getTime());
+	window.draw(m_Hud.getHealth());
+	window.draw(m_Hud.getBullet());
 	if (state != State::PLAYING)
 	{
 		window.draw(m_Hud.getMessage());

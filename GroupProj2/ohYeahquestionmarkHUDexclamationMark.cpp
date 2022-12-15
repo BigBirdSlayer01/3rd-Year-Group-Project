@@ -28,16 +28,30 @@ Hud::Hud()
 	// Time
 	mT_Time.setFont(mT_Font);
 	mT_Time.setCharacterSize(75);
-	mT_Time.setFillColor(Color::White);
+	mT_Time.setFillColor(Color::Green);
 	mT_Time.setPosition(resolution.x - 150, 0);
 	mT_Time.setString("------");
 
 	// Score
 	mT_Score.setFont(mT_Font);
 	mT_Score.setCharacterSize(75);
-	mT_Score.setFillColor(Color::White);
+	mT_Score.setFillColor(Color::Green);
 	mT_Score.setPosition(25, 0);
 	mT_Score.setString("1");
+
+	// Health
+	mT_Health.setFont(mT_Font);
+	mT_Health.setCharacterSize(75);
+	mT_Health.setFillColor(Color::Green);
+	mT_Health.setPosition(25, resolution.y-100);
+	mT_Health.setString("1");
+
+	// bullet
+	m_clipSize.setFont(mT_Font);
+	m_clipSize.setCharacterSize(75);
+	m_clipSize.setFillColor(Color::Green);
+	m_clipSize.setPosition(resolution.x-100, resolution.y - 100);
+	m_clipSize.setString("1");
 }
 
 Text Hud::getMessage()
@@ -55,6 +69,17 @@ Text Hud::getTime()
 	return mT_Time;
 }
 
+Text Hud::getHealth()
+{
+	return mT_Health;
+}
+
+Text Hud::getBullet()
+{
+	return m_clipSize;
+}
+
+
 void Hud::setScore(String text)
 {
 	mT_Score.setString(text);
@@ -63,4 +88,14 @@ void Hud::setScore(String text)
 void Hud::setTime(String text)
 {
 	mT_Time.setString(text);
+}
+
+void Hud::setHealth(String text)
+{
+	mT_Health.setString(text);
+}
+
+void Hud::setBullet(String text)
+{
+	m_clipSize.setString(text);
 }

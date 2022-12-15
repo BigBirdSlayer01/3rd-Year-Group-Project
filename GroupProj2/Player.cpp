@@ -29,6 +29,10 @@ void Player::Spawn(Vector2f startPosition, float gravity)
 	m_JumpDuration = .67;
 
 	m_Speed = 0.2f;
+
+	m_health = 3;
+
+	m_Score = 0;
 }
 
 void Player::update(float elapsedTime)
@@ -234,7 +238,17 @@ int Player::getHealth()
 }
 void Player::setHealth(int newHealth)
 {
-	m_health = newHealth;
+	m_health += newHealth;
+}
+
+int Player::getScore()
+{
+	return m_Score;
+}
+void Player::setScore(int scoreUp)
+{
+	m_Score += scoreUp;
+
 }
 
 //detect collisions - used to check if player collides with 'enemyBlock' rect

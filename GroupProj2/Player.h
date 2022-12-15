@@ -42,6 +42,9 @@ public:
 
 	int getHealth();
 	void setHealth(int newHealth);
+	
+	int getScore();
+	void setScore(int scoreUp);
 
 	void setY(int y);
 	void setX(int x);
@@ -65,6 +68,9 @@ protected:
 	int m_health;
 	//max health will use this for powerups
 	int max_health;
+
+	//Score variable
+	int m_Score;
 	// How long does a jump last
 	float m_JumpDuration = 0.35;
 	// is the player going up or down

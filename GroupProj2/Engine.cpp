@@ -1,10 +1,14 @@
 #include "Engine.h"
+#include <sstream>
+#include "TextureHolder.h"
 
 
 Engine::Engine()
 {
 	//enum for the games state
 	state = State::GAME_OVER;
+
+	TextureHolder holder;
 
 	resolution.x = VideoMode::getDesktopMode().width;
 	resolution.y = VideoMode::getDesktopMode().height;
@@ -38,7 +42,7 @@ Engine::Engine()
 	currentEnemy = 0;
 
 	// Hide the mouse pointer and replace it with crosshair
-	window.setMouseCursorVisible(true);
+	window.setMouseCursorVisible(false);
 
 	textureCrosshair.loadFromFile("graphics/crosshair.png");
 	spriteCrosshair.setTexture(textureCrosshair);
@@ -57,8 +61,11 @@ Engine::Engine()
 
 void Engine::run()
 {
-	Obstacle hit(0);
-	Pickup thing(0);
+	Pickup* healthPtr = new Pickup();
+	//Pickup ammoPickup(0);
+	//bale.setType();
+	//Obstacle trough(1);
+	
 
 	//values used to scroll background
 	FloatRect fBounds(0.f, 0.f, (resolution.x * 2.5), (resolution.y));
@@ -101,6 +108,9 @@ void Engine::run()
 			//update player
 			user.input();
 			user.update(dt.asSeconds());
+
+			healthPtr->update(dtAsSeconds);
+			//ammoPickup.update(dtAsSeconds);
 			//updates enemy
 			for (int i = 0; i < 19; i++)
 			{
@@ -109,19 +119,36 @@ void Engine::run()
 					enemy[i].update(dt.asSeconds(), user.getCenter());
 					if (user.detectCollisions(enemy[i].getPosition()))//check for collision between player and enemy)
 					{
+						//The enemy. hit function is called twice as otherwise they can double hit the player and take 2 health
 						enemy[i].hit();
-						user.setHealth(user.getHealth() - 1);
+						enemy[i].hit();
+						user.setHealth(-1);
+						user.setScore(-5);
 					}
 				}
 				if (enemy[i].getPosition().left > 0)
 				{
 					enemy[i].isAlive() == false;
 				}
-			}		
-			//update objects
-			hit.update(dtAsSeconds);
-			thing.update(dtAsSeconds);
+			}	
 			//updates scene
+			// Draw the pickups is currently spawned
+			/*if (ammoPickup.isSpawned())
+			{
+				window.draw(ammoPickup.getSprite());
+			}*/
+			healthPtr->spawn();
+
+			//if the pickup is spawned, draw the sprite so it appears on screen
+			if (healthPtr->isSpawned())
+			{
+				std::stringstream ssBullets;
+
+				ssBullets << "The health Pickup has been attempted to be drawn" << clipsize;
+				m_Hud.setBullet(ssBullets.str());
+				window.draw(healthPtr->getSprite());
+			}
+
 			update(dtAsSeconds);
 			draw();
 		}
