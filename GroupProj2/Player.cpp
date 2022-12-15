@@ -325,3 +325,12 @@ void Player::hit()
 	}
 	flashCount++;
 }
+
+int Player::getScore()
+{
+	return m_Score;
+}
+void Player::setScore(int scoreUp)
+{
+	m_Score += scoreUp;
+}

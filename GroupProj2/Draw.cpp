@@ -33,15 +33,14 @@ void Engine::draw()
 	// Draw the HUD
 	// Switch to m_HudView
 
+	window.draw(m_Hud.getScore());
+	window.draw(m_Hud.getTime());
+	window.draw(m_Hud.getHealth());
+	window.draw(m_Hud.getBullet());
 	if (state != State::PLAYING)
 	{
 		window.draw(m_Hud.getMessage());
 	}
-
-	window.draw(spriteCrosshair);
-	window.setView(m_HudView);
-	window.draw(m_Hud.getScore());
-	window.draw(m_Hud.getTime());
 	// Draw the particle system
 
 	window.display();

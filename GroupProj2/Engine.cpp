@@ -97,6 +97,7 @@ void Engine::run()
 			//all used for scrolling background
 			//moves the x value of the view by 0.2f (value may be changed to suit the game)
 			mainView.move(user.getSpeed(), 0.0f);
+			//m_HudView.move(user.getSpeed(), 0.0f);
 			//sets the offset of the view
 			sf::Vector2f viewOffset(viewStart - mainView.getCenter());
 			//creates the sprite offset

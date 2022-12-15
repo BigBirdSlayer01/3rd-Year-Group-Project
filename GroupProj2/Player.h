@@ -50,6 +50,9 @@ public:
 	int getHealth();
 	void setHealth(int newHealth);
 
+	int getScore();
+	void setScore(int scoreUp);
+
 	void setY(int y);
 	void setX(int x);
 
@@ -98,6 +101,8 @@ protected:
 	// Gravity will effect jump
 	float m_Gravity;
 
+	//Score variable
+	int m_Score;
 	//player position
 	Vector2f m_Position;
 	//Used for collision detection

@@ -24,17 +24,29 @@ void Engine::update(float dtAsSeconds)
 		// Update the HUD every m_TargetFramesPerHUDUpdate frames
 		if (m_FramesSinceLastHUDUpdate > m_TargetFramesPerHUDUpdate)
 		{
+			m_Hud.setSpotonView();
+
 			// Update game HUD text
 			std::stringstream ssTime;
 			std::stringstream ssScore;
+			std::stringstream ssHealth;
+			std::stringstream ssBullets;
+
 
 			// Update the time text
 			ssTime << (int)m_TimeRemaining;
 			m_Hud.setTime(ssTime.str());
 
 			// Update the level text
-			ssScore << "Score:"; //Add a score function when the game is done
+
+			ssScore << "Score:" << user.getScore(); //Add a score function when the game is done
 			m_Hud.setScore(ssScore.str());
+
+			ssHealth << "Health:" << user.getHealth();
+			m_Hud.setHealth(ssHealth.str());
+
+			ssBullets << bulletsInClip << "/" << clipsize;
+			m_Hud.setBullet(ssBullets.str());
 
 			m_FramesSinceLastHUDUpdate = 0;
 		}
@@ -111,6 +123,7 @@ void Engine::update(float dtAsSeconds)
 				++itr;
 			}
 		}
+
 
 		/*
 		if (obstacle[currentObstacle].isSpawned() == false)

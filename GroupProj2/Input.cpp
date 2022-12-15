@@ -31,8 +31,11 @@ void Engine::input()
 			{
 				if (event.key.code == Keyboard::R)
 				{
-					bulletsInClip = clipsize;
-					//insert sound for reload here
+				//	for (int i = 0; i < 10000; i++) {
+				//		if (i == 10000) {
+							bulletsInClip = clipsize;
+					//	}
+				//	}
 				}
 			}
 		}
@@ -76,7 +79,11 @@ void Engine::input()
 		//reloads
 		if ((sf::Joystick::isButtonPressed(0, 1)))
 		{
-			bulletsInClip = clipsize;
+			//for (int i = 0; i < 10000; i++) {
+				//if (i == 10000) {
+					bulletsInClip = clipsize;
+				//}
+			//}
 		}
 		if ((sf::Joystick::isButtonPressed(0, 7)))
 		{
