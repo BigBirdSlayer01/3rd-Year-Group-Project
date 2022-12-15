@@ -100,9 +100,9 @@ void Enemy::update(float elapsedTime, Vector2f playerLocation)
 		{
 			//enemy is dead
 			//reduce x
-			m_Position.x = m_Position.x - 5;
+			m_Position.x = m_Position.x - 2 * elapsedTime;
 			//reduce y
-			m_Position.y = m_Position.y - 50 * elapsedTime;
+			m_Position.y = m_Position.y + 500 * elapsedTime;
 		}
 	}
 

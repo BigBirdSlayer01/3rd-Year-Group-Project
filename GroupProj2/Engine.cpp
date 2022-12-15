@@ -19,22 +19,24 @@ Engine::Engine()
 
 	mainView = View(window.getDefaultView());
 
-	backgroundTexture.loadFromFile("graphics/back.jpg");
+
+	backgroundTexture.loadFromFile("graphics/back.png");
 
 	backgroundTexture.setRepeated(true);
 
 	//sf::Sprite backgroundSprite(backgroundTexture, iBounds);
 	backgroundSprite.setTexture(backgroundTexture);
-
+	//scaling background to screen
+	float screenBackgroundYRatio = resolution.y / 677;
+	backgroundSprite.setScale(1.0f,screenBackgroundYRatio);
 	//floorY value - this variable will hold Y value of the ground level
-	float floorY = resolution.y * 0.6; // 1/6 of screen size
+	float floorY = resolution.y * 0.7; // 0.7 of screen size
 	//declares start position
 	Vector2f startPos(150, floorY);
 
 	//spawns player
-	user.Spawn(startPos, Gravity);
-	currentEnemy = 0;
-	
+	user.Spawn(startPos, Gravity, resolution);
+	enemy.spawn(resolution.x, resolution.y / 2);
 
 	// Hide the mouse pointer and replace it with crosshair
 	window.setMouseCursorVisible(false);
@@ -57,7 +59,7 @@ Engine::Engine()
 void Engine::run()
 {
 	//values used to scroll background
-	FloatRect fBounds(0.f, 0.f, (resolution.x * 2.5), (resolution.y));
+	FloatRect fBounds(0.f, 0.f, (resolution.x * 2.8), (resolution.y));
 
 	IntRect iBounds(fBounds);
 
@@ -96,7 +98,7 @@ void Engine::run()
 		{
 			//update player
 			user.input();
-			user.update(dt.asSeconds());
+			user.update(dt.asSeconds(), mouseWorldPosition);
 			//updates enemy
 			for (auto it = begin(enemyVector); it != end(enemyVector); ++it)
 			{

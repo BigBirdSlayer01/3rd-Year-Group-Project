@@ -2,6 +2,7 @@
 #define PLAYER_H
 //#include "GameObject.h"
 #include <SFML/Graphics.hpp>
+#include "PlayerArms.h"
 
 
 using namespace sf;
@@ -16,7 +17,7 @@ public:
 	FloatRect getPosition();
 
 	//spawns player
-	void Spawn(Vector2f position, float gravity);
+	void Spawn(Vector2f position, float gravity, Vector2f resolution);
 	//for user input
 	bool input();
 
@@ -28,6 +29,7 @@ public:
 
 	//for use in main
 	Sprite getSprite();
+	Sprite getArmSprite();
 
 	//will stop player from falling
 	void stopFall(float position);
@@ -35,7 +37,7 @@ public:
 	//stop jump
 	void stopJump();
 
-	void update(float elapsedTime);
+	void update(float elapsedTime, Vector2f targetCoords);//update player
 
 	int getX();
 	int getY();
@@ -53,6 +55,7 @@ public:
 	float m_Speed = 0.2f;
 
 protected:
+	PlayerArms* arms = new PlayerArms();
 	//starting Y position of player
 	float m_startY;
 	//checks if space is pressed for jump
@@ -79,6 +82,12 @@ protected:
 	//flashing count - used to check if flash sprite should be used
 	int flashCount = 0;
 	bool isFlashing = false; //is the user currently flashing
+	//resolution size saved for PlayerArms
+	Vector2f m_resolution;
+	//screenHeight variable
+	float screenHeight;
+	//playerSizeRatio - stores ratio of player to screen res
+	float playerSizeRatio;
 
 	//possible private will leave as protected for now can chaange later
 	// Gravity will effect jump

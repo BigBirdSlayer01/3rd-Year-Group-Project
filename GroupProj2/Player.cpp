@@ -1,14 +1,15 @@
 #include "Player.h"
 //#include <SFML/Sprite.hpp>
 
-void Player::Spawn(Vector2f startPosition, float gravity)
+void Player::Spawn(Vector2f startPosition, float gravity, Vector2f resolution)
 {
+	arms->spawn(startPosition);//spawn arms object
 	//setting start y position
 	m_startY = startPosition.y;
-	//total height of screen = (startY / 6) * 10
-	const float screenHeight = (m_startY / 6) * 10;
+	//total height of screen = (startY / 7) * 10
+	screenHeight = (m_startY / 7) * 10;
 	//float - ratio for player sprite - sprite image height should be half of screen height
-	const float playerSizeRatio = (screenHeight / 5) / 128;//image height - 128pixels
+	playerSizeRatio = (screenHeight / 5) / 128;//image height - 128pixels
 
 	// Place the player at the starting point
 	m_Position.x = startPosition.x;
@@ -16,6 +17,9 @@ void Player::Spawn(Vector2f startPosition, float gravity)
 
 	// Initialize the gravity
 	m_Gravity = gravity;
+
+	//set origin to center
+	m_Sprite.setOrigin(64, 64);
 
 	// Move the sprite in to position
 	m_Sprite.setPosition(m_Position);
@@ -29,9 +33,14 @@ void Player::Spawn(Vector2f startPosition, float gravity)
 	m_JumpDuration = .67;
 
 	m_Speed = 0.2f;
+
+	//store resolution values
+	m_resolution.x = resolution.x;
+	m_resolution.y = resolution.y;
+
 }
 
-void Player::update(float elapsedTime)
+void Player::update(float elapsedTime, Vector2f targetCoords)
 {
 	m_Position.x += m_Speed;
 
@@ -99,6 +108,16 @@ void Player::update(float elapsedTime)
 	{
 		hit();
 	}
+
+	//update arms
+	if (arms->update(m_Position, targetCoords, m_resolution) == true)
+	{
+		m_Sprite.setScale(playerSizeRatio,playerSizeRatio);
+	}
+	else
+	{
+		m_Sprite.setScale(-playerSizeRatio, playerSizeRatio);
+	}
 }
 
 //handles player input
@@ -153,11 +172,7 @@ FloatRect Player::getPosition()
 
 Vector2f Player::getCenter()
 {
-	return Vector2f
-	(
-		m_Position.x + m_Sprite.getGlobalBounds().width / 2,
-		m_Position.y + m_Sprite.getGlobalBounds().height / 2
-	);
+	return Vector2f(m_Position.x,m_Position.y);
 }
 
 FloatRect Player::getBottom()
@@ -180,9 +195,16 @@ FloatRect Player::getRight()
 	return m_Right;
 }
 
+//return player sprite
 Sprite Player::getSprite()
 {
 	return m_Sprite;
+}
+
+//return player arms sprite
+Sprite Player::getArmSprite()
+{
+	return arms->getArmSprite();
 }
 
 //will stop player fall
@@ -255,7 +277,7 @@ bool Player::detectCollisions(FloatRect enemyBlock)
 
 void Player::hit()
 {
-	if (flashCount % 4 == 0) //every 4 frames - change sprite image
+	if (flashCount % 40 == 0) //every 4 frames - change sprite image
 	{
 		if (isFlashing)
 		{
@@ -268,7 +290,7 @@ void Player::hit()
 			isFlashing = true;
 		}
 		//after 10 flashes, reset sprite image to default and boolean values to false
-		if (flashCount % 40 == 0)
+		if (flashCount % 300 == 0)
 		{
 			isHit = false;
 			isFlashing = false;
