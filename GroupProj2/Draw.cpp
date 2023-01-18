@@ -32,7 +32,8 @@ void Engine::draw()
 	}
 	// Draw the HUD
 	// Switch to m_HudView
-
+	window.draw(spriteCrosshair);
+	window.setView(m_HudView);
 	window.draw(m_Hud.getScore());
 	window.draw(m_Hud.getTime());
 	window.draw(m_Hud.getHealth());
