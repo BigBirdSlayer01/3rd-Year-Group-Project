@@ -43,6 +43,7 @@
     <ClCompile Include="Player.cpp" />
     <ClCompile Include="Obstacle2.cpp" />
     <ClCompile Include="PlayerArms.cpp" />
+    <ClCompile Include="writeScore.cpp" />
     <ClCompile Include="TextureHolder.cpp" />
     <ClCompile Include="Update.cpp" />
     <ClCompile Include="UpdatePlayer.cpp" />

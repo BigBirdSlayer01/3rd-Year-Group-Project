@@ -85,6 +85,7 @@ void Engine::update(float dtAsSeconds)
 						bullets[i].stopBullet();
 
 						(*it)->hit();
+						user.setScore(2);
 					}
 				}
 			}

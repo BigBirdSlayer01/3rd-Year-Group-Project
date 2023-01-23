@@ -149,4 +149,5 @@ void Engine::run()
 			draw();
 		}
 	}
+	writeScore(user.getScore());//write high Score
 }

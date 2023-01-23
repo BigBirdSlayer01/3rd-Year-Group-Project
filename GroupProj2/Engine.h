@@ -10,13 +10,14 @@
 #include <iostream>
 #include <string>
 #include <vector>
+#include "fstream"
 
 using namespace sf;
 
 class Engine
 {
 private:
-	enum class State { PAUSED, GAME_OVER, PLAYING };
+	enum class State { PAUSED, GAME_OVER, PLAYING};
 
 	State state;
 
@@ -94,8 +95,10 @@ private:
 	void update(float dtAsSeconds);
 	void input();
 
-
-
+	//file to store high score
+	std::ifstream readFile; //stream to read in high score from file
+	//method to handle file writing
+	void writeScore(int newScore);
 public:
 	// The Engine constructor
 	Engine();
