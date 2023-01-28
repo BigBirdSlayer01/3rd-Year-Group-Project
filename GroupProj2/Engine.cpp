@@ -19,6 +19,13 @@ Engine::Engine()
 
 	mainView = View(window.getDefaultView());
 
+	//set texture and sprite for menu
+	float menuYRatio = resolution.y / 1011;
+	float menuXRatio = resolution.x / 1798;
+	menuTexture.loadFromFile("graphics/FarmYard.jpg");
+	menuSprite.setTexture(menuTexture);
+	menuSprite.setScale(menuXRatio, menuYRatio);
+	menuSprite.setPosition(0, 0);
 
 	backgroundTexture.loadFromFile("graphics/back.png");
 
@@ -61,11 +68,53 @@ Engine::Engine()
 	bulletsInClip = 6;
 	fireRate = 1;
 
+	//load font
+	font.loadFromFile("fonts/Farm.ttf");
+
+	//menu buttons
+	gamestate_btn = new Button(
+	resolution.x/2-150,resolution.y/2-200,300,80, &this->font, "Play",sf::Color(185,65,255), sf::Color(219,165,255), sf::Color(119,0,200));
+
+	highButton = new Button(
+		resolution.x / 2 - 150, resolution.y / 2 , 300, 80, &this->font, "Highscore", sf::Color(185, 65, 255), sf::Color(219, 165, 255), sf::Color(119, 0, 200));
+
+	quitButton = new Button(
+		resolution.x / 2 - 150, resolution.y / 2+200, 300, 80, &this->font, "Quit", sf::Color(185, 65, 255), sf::Color(219, 165, 255), sf::Color(119, 0, 200));
+
+	//Menu Text
+	menuText.setFont(font);
+	menuText.setCharacterSize(150);
+	menuText.setFillColor(Color::Black);
+	menuText.setPosition(resolution.x / 2 - 750, 250);
+	menuText.setString("Chicken Hunt (Working Title)");
+
+	//paused text
+	pauseText.setFont(font);
+	pauseText.setCharacterSize(128);
+	pauseText.setFillColor(Color::Black);
+	pauseText.setPosition(resolution.x / 2 - 650, resolution.y / 2);
+	pauseText.setString("PAUSED: Press Enter to Resume");
+
+	//setting up sounds for the game
+	shootBuffer.loadFromFile("sound/Shoot.ogg");
+	shoot.setBuffer(shootBuffer);
+	//reload
+	reloadBuffer.loadFromFile("sound/reload.wav");
+	reload.setBuffer(reloadBuffer);
+	//chicken death noise
+	chickenBuffer.loadFromFile("sound/ChickenDie.ogg");
+	chicken.setBuffer(chickenBuffer);
+	//player hit noise
+	hitBuffer.loadFromFile("sound/hit.wav");
+	hit.setBuffer(hitBuffer);
+
 
 }// End Engine constructor
 
 void Engine::run()
 {
+	mouseWorldPosition = window.mapPixelToCoords(Mouse::getPosition(), mainView);
+
 	//values used to scroll background
 	FloatRect fBounds(0.f, 0.f, (resolution.x * 2.8), (resolution.y));
 
@@ -86,6 +135,7 @@ void Engine::run()
 
 	while (window.isOpen())
 	{
+
 		Time dt = clock.restart();
 		// Update the total game time
 		totalGameTime += dt;
@@ -119,6 +169,7 @@ void Engine::run()
 
 		input();
 
+
 		if (state == State::PLAYING)
 		{
 			//update player
@@ -134,19 +185,35 @@ void Engine::run()
 					{
 						(*it)->hit();
 						user.setHealth(user.getHealth() - 1);
+						hit.play();
 					}
 				}
 				if ((*it)->getPosition().left > 0)
 				{
 					(*it)->isAlive() == false;
 				}
-
-
 			}
-
 			//updates scene
 			update(dtAsSeconds);
-			draw();
 		}
+		
+		if (state == State::PAUSED || state == State::GAME_OVER)
+		{
+			mouseWorldPosition = window.mapPixelToCoords(Mouse::getPosition(), mainView);
+
+			gamestate_btn->update(mouseWorldPosition);
+			highButton->update(mouseWorldPosition);
+			quitButton->update(mouseWorldPosition);
+
+			if (gamestate_btn->getButtonState() == BTN_PRESSED)
+			{
+				state = State::PLAYING;
+			}
+			if (quitButton->getButtonState() == BTN_PRESSED)
+			{
+				window.close();
+			}
+		}
+		draw();
 	}
 }

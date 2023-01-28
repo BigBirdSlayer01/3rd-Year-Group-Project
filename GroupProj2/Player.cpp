@@ -36,7 +36,7 @@ void Player::Spawn(Vector2f startPosition, float gravity, Vector2f resolution)
 
 	m_JumpDuration = .67;
 
-	m_Speed = 0.2f;
+	m_Speed = 0.3f;
 
 	//store resolution values
 	m_resolution.x = resolution.x;

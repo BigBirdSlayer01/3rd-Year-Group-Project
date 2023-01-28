@@ -6,6 +6,11 @@ using namespace sf;
 
 int main()
 {
+	sf::Music music;
+	if (!music.openFromFile("sound/Music.ogg"))
+		return -1; // error
+	music.play();
+
 	//engine
 	Engine engine;
 

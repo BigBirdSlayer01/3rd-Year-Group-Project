@@ -4,6 +4,7 @@
 #include "Bullet.h"
 #include "Player.h"
 #include "Enemy.h"
+#include "Button.h"
 #include "Pickup.h"
 #include "Obstacle2.h"
 #include "HUD.h"
@@ -46,6 +47,32 @@ private:
 	//background and floor textures
 	Texture backgroundTexture;
 	Texture floorTexture;
+
+	//For menu
+	Sprite menuSprite;
+	Texture menuTexture;
+
+	Button* gamestate_btn;
+	Button* highButton;
+	Button* quitButton;
+
+	//menu text
+	Text menuText;
+	//paused text
+	Text pauseText;
+
+	//Sounds
+	SoundBuffer shootBuffer;
+	Sound shoot;
+	SoundBuffer hitBuffer;
+	Sound hit;
+	SoundBuffer chickenBuffer;
+	Sound chicken;
+	SoundBuffer reloadBuffer;
+	Sound reload;
+
+	//font
+	Font font;
 
 	//background and floor sprites
 	Sprite backgroundSprite;

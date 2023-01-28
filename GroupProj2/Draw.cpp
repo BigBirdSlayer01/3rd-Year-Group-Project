@@ -41,8 +41,26 @@ void Engine::draw()
 	if (state != State::PLAYING)
 	{
 		window.draw(m_Hud.getMessage());
+		window.draw(menuSprite);
+		window.draw(menuText);
+		window.setMouseCursorVisible(true);
 	}
-	// Draw the particle system
-
+	if (state == State::GAME_OVER)
+	{
+		window.draw(gamestate_btn->getShape());
+		window.draw(gamestate_btn->getText());
+		window.draw(highButton->getShape());
+		window.draw(highButton->getText());
+		window.draw(quitButton->getShape());
+		window.draw(quitButton->getText());
+	}
+	if (state == State::PAUSED)
+	{
+		window.draw(pauseText);
+	}
+	
+	
+	
+	//displays the window
 	window.display();
 }

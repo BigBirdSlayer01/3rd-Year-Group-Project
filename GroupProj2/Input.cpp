@@ -12,14 +12,14 @@ void Engine::input()
 				state = State::PAUSED;
 				//music.pause();
 			}
-			else if (event.key.code == Keyboard::Return && state == State::PAUSED)
+			else if (event.key.code == Keyboard::Return && state == State::PAUSED || gamestate_btn->getButtonState() == BTN_PRESSED && state == State::PAUSED)
 			{
 				state = State::PLAYING;
 				// Reset the clock so there isn't a frame jump
 				clock.restart();
 			}
 			// Start a new game while in GAME_OVER state
-			else if (event.key.code == Keyboard::Return && state == State::GAME_OVER)
+			else if (event.key.code == Keyboard::Return && state == State::GAME_OVER || gamestate_btn->getButtonState() == BTN_PRESSED && state == State::GAME_OVER)
 			{
 				state = State::PLAYING;
 				currentBullet = 0;
@@ -34,6 +34,7 @@ void Engine::input()
 				//	for (int i = 0; i < 10000; i++) {
 				//		if (i == 10000) {
 							bulletsInClip = clipsize;
+							reload.play();
 					//	}
 				//	}
 				}
@@ -64,6 +65,8 @@ void Engine::input()
 			{
 				// Pass the centre of the player and the centre of the crosshair
 				// to the shoot function
+				shoot.play();
+
 				bullets[currentBullet].shootBullet(user.getCenter().x, user.getCenter().y, newX, newY);
 
 				currentBullet++;
@@ -73,7 +76,9 @@ void Engine::input()
 					currentBullet = 0;
 				}
 				lastFired = totalGameTime;
+				
 				bulletsInClip--;
+				
 			}
 		}
 		//reloads
@@ -82,6 +87,7 @@ void Engine::input()
 			//for (int i = 0; i < 10000; i++) {
 				//if (i == 10000) {
 					bulletsInClip = clipsize;
+					reload.play();
 				//}
 			//}
 		}
@@ -132,11 +138,12 @@ void Engine::input()
 		//shoots bullet
 		if (sf::Mouse::isButtonPressed(sf::Mouse::Left))
 		{
-
+			
 			if (totalGameTime.asMilliseconds()
 				- lastFired.asMilliseconds()
 					> 1000 / fireRate && bulletsInClip > 0)
 			{
+				shoot.play();
 				// Pass the centre of the player and the centre of the crosshair
 				// to the shoot function
 				bullets[currentBullet].shootBullet(user.getCenter().x, user.getCenter().y, spriteCrosshair.getPosition().x, spriteCrosshair.getPosition().y);
