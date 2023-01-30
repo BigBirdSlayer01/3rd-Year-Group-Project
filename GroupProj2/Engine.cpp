@@ -34,12 +34,12 @@ Engine::Engine()
 	//sf::Sprite backgroundSprite(backgroundTexture, iBounds);
 	backgroundSprite.setTexture(backgroundTexture);
 	//scaling background to screen
-	float screenBackgroundYRatio = resolution.y / 677;
+	float screenBackgroundYRatio = resolution.y / 677; //back.png has height of 677 pixels
 	backgroundSprite.setScale(1.0f, screenBackgroundYRatio);
 	//floorY value - this variable will hold Y value of the ground level
-	float floorY = resolution.y * 0.65; // 0.7 of screen size
+	float floorY = resolution.y * 0.7; // 0.7 of screen size
 	//declares start position
-	Vector2f startPos(150, floorY);
+	Vector2f startPos(150, resolution.y*0.65);//spawn player on TOP of floor
 
 	//create floor sprite
 	floorTexture.loadFromFile("graphics/Floor.png");
@@ -47,7 +47,7 @@ Engine::Engine()
 	floorSprite.setTexture(floorTexture);
 	floorSprite.setScale(1.0f, screenBackgroundYRatio);
 	//position floor
-	floorSprite.setPosition(0.0, resolution.y * 0.7);//0.7 of resolution down on screen
+	floorSprite.setPosition(0.0, floorY);//value of floorY down on screen
 
 	//spawns player
 	user.Spawn(startPos, Gravity, resolution);
@@ -130,12 +130,12 @@ void Engine::run()
 	const sf::Vector2f spriteStart(fBounds.left, fBounds.top);
 
 	//values used to scroll floor
-	FloatRect floorBounds(0.f, 0.f, (resolution.x * 2.8), resolution.y * 0.7);
+	FloatRect floorBounds(0.f, 0.f, (resolution.x * 2.8), resolution.y);
 	IntRect iFloorBounds(floorBounds);
 	floorSprite.setTextureRect(iFloorBounds);
 
-	const sf::Vector2f viewFloorStart(floorBounds.left + (floorBounds.width / 2), floorBounds.top + floorBounds.height);
-	const sf::Vector2f spriteFloorStart(floorBounds.left, floorBounds.top + floorBounds.height);
+	const sf::Vector2f viewFloorStart(floorBounds.left + (floorBounds.width / 2), floorBounds.top + (floorBounds.height/2));
+	const sf::Vector2f spriteFloorStart(floorBounds.left, floorBounds.top + resolution.y*0.7);//flor sprite starts 0.7% down screen height
 
 	while (window.isOpen())
 	{

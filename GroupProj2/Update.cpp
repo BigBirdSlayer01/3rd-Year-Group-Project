@@ -24,7 +24,7 @@ void Engine::update(float dtAsSeconds)
 
 		bObstacle.update(dtAsSeconds, resolution.x);
 
-		hPickup.update(dtAsSeconds, resolution.x);
+		hPickup.update(dtAsSeconds, resolution); //passes resolution - dynamic spawning of pickup
 
 		// Update the HUD every m_TargetFramesPerHUDUpdate frames
 		if (m_FramesSinceLastHUDUpdate > m_TargetFramesPerHUDUpdate)

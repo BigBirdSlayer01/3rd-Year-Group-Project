@@ -40,7 +40,7 @@ public:
 	float m_SecondsToWait;
 
 	//Spawn an Obstacle
-	void spawn(int xRes);
+	void spawn(Vector2f resolution);
 
 	// Check the position of a Obstacle, used for checking collisions
 	FloatRect getPosition();
@@ -49,7 +49,7 @@ public:
 	Sprite getSprite();
 
 	// Let the Obstacle update itself each frame
-	void update(float elapsedTime, int xRes);
+	void update(float elapsedTime, Vector2f res);
 
 	// Is this Obstacle currently spawned?
 	bool isSpawned();

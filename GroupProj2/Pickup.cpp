@@ -12,7 +12,7 @@ Pickup::Pickup()
 	m_SecondsToWait = 10;
 }
 
-void Pickup::spawn(int xRes)
+void Pickup::spawn(Vector2f resolution)
 {
 	srand(time(0));
 	//m_Type = (rand() % 4);
@@ -47,10 +47,10 @@ void Pickup::spawn(int xRes)
 	m_SecondsSinceSpawn = 0;
 	m_Spawned = true;
 
-	//set enemy's position
-	m_Position.x = xRes;
+	//set pickup's position
+	m_Position.x = resolution.x; //xRes
 	m_Position.x += 40;
-	m_Position.y = 730;
+	m_Position.y = resolution.y*0.7; //0.7% down on screen - same as floor
 
 	m_Sprite.setPosition(m_Position);
 }
@@ -70,7 +70,7 @@ bool Pickup::isSpawned()
 	return m_Spawned;
 }
 
-void Pickup::update(float elapsedTime, int xRes)
+void Pickup::update(float elapsedTime, Vector2f res)
 {
 	if (m_Spawned)
 	{
@@ -95,7 +95,7 @@ void Pickup::update(float elapsedTime, int xRes)
 	{
 		// spawn the Pickup and reset the timer
 
-		spawn(xRes);
+		spawn(res);
 	}
 }
 
