@@ -1,54 +1,58 @@
 #include "Pickup.h"
 #include "TextureHolder.h"
-#include "Engine.h"
+#include <iostream>
+#include <ctime>
+#include <cstdlib>
+
 
 Pickup::Pickup()
 {
-	/*srand(time(NULL));
-	int randNum = (rand() % 2) + 1;*/
-	// Store the type of this pickup
-	m_Type = 1;
-
-	// Associate the texture with the sprite
-	if (m_Type == 1) {
-		m_Texture.loadFromFile("graphics/Farmer.png");
-
-		m_Sprite.setTexture(m_Texture);
-
-		// How much is pickup worth
-		m_Value = HEALTH_START_VALUE;
-	}
-
-	else
-	{
-		m_Texture.loadFromFile("graphics/Farmer.png");
-
-		m_Sprite.setTexture(m_Texture);
-
-		// How much is pickup worth
-		m_Value = AMMO_START_VALUE;
-	}
-
-	m_Sprite.setOrigin(25, 25);
-
-	m_SecondsToLive = START_SECONDS_TO_LIVE;
-	m_SecondsToWait = START_WAIT_TIME;
+	srand(time(0));
+	m_SecondsToLive = 200;
+	m_SecondsToWait = 10;
 }
 
-void Pickup::spawn()
+void Pickup::spawn(int xRes)
 {
-	// Spawn at a random location
-	srand((int)time(0) / m_Type);
-	int x = (rand() % 1000);
-	srand((int)time(0) * m_Type);
-	int y = (rand() % 1000);
+	srand(time(0));
+	//m_Type = (rand() % 4);
+	m_Type = 3;
 
+	// Associate the texture with the sprite
+	if (m_Type == 1)
+	{
+		m_Texture.loadFromFile("graphics/Bullets.png");
+		rectSpriteSource = IntRect(0, 0, 63, 48);
+
+	}
+	else if (m_Type == 2)
+	{
+		m_Texture.loadFromFile("graphics/HealthPickup.png");
+		rectSpriteSource = IntRect(0, 0, 108, 48);
+	}
+
+	else if (m_Type == 3)
+	{
+		m_Texture.loadFromFile("graphics/crop_duster.png");
+		rectSpriteSource = IntRect(0, 0, 128, 128);
+
+	}
+	m_Sprite = Sprite(m_Texture, rectSpriteSource);
+	m_Sprite.setPosition(m_Position);
+	m_Sprite.setOrigin(
+		rectSpriteSource.left + rectSpriteSource.width / 2,
+		rectSpriteSource.top + rectSpriteSource.height / 2);
 	// Not currently spawned
 	//m_Spawned = false;
 	m_SecondsSinceSpawn = 0;
 	m_Spawned = true;
 
-	m_Sprite.setPosition(250, 250);
+	//set enemy's position
+	m_Position.x = xRes;
+	m_Position.x += 40;
+	m_Position.y = 730;
+
+	m_Sprite.setPosition(m_Position);
 }
 
 FloatRect Pickup::getPosition()
@@ -66,16 +70,9 @@ bool Pickup::isSpawned()
 	return m_Spawned;
 }
 
-int Pickup::gotIt()
+void Pickup::update(float elapsedTime, int xRes)
 {
-	m_Spawned = false;
-	m_SecondsSinceDeSpawn = 0;
-	return m_Value;
-}
-
-void Pickup::update(float elapsedTime)
-{
-	/*if (m_Spawned)
+	if (m_Spawned)
 	{
 		m_SecondsSinceSpawn += elapsedTime;
 	}
@@ -85,35 +82,31 @@ void Pickup::update(float elapsedTime)
 	}
 
 
-	// Do we need to hide a pickup?
+	// Do we need to hide a Pickup?
 	if (m_SecondsSinceSpawn > m_SecondsToLive && m_Spawned)
 	{
-		// Revove the pickup and put it somewhere else
+		// Revove the Pickup and put it somewhere else
 		m_Spawned = false;
 		m_SecondsSinceDeSpawn = 0;
 	}
 
-	// Do we need to spawn a pickup
+	// Do we need to spawn a Pickup
 	if (m_SecondsSinceDeSpawn > m_SecondsToWait && !m_Spawned)
-	{*/
-	// spawn the pickup and reset the timer
-	spawn();
-	//}
+	{
+		// spawn the Pickup and reset the timer
 
+		spawn(xRes);
+	}
 }
 
-void Pickup::upgrade()
+//If the player hits the box, remove it
+void Pickup::gotIt()
 {
-	if (m_Type == 1)
-	{
-		m_Value += (HEALTH_START_VALUE * .5);
-	}
-	else
-	{
-		m_Value += (AMMO_START_VALUE * .5);
-	}
+	m_Spawned = false;
+	m_SecondsSinceDeSpawn = 0;
+}
 
-	// Make them more frequent and last longer
-	m_SecondsToLive += (START_SECONDS_TO_LIVE / 10);
-	m_SecondsToWait -= (START_WAIT_TIME / 10);
+int Pickup::getType()
+{
+	return m_Type;
 }

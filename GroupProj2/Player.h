@@ -10,6 +10,7 @@ using namespace sf;
 class Player //: public GameObject
 {
 public:
+	void changeSprite(String x);
 
 	//gets the center position of the player
 	Vector2f getCenter();
@@ -57,10 +58,13 @@ public:
 	void setX(int x);
 
 	float getSpeed();
+	//void setSpeed(float nSpeed);
 	bool detectCollisions(FloatRect enemyBlock);
 
 	// background speed
 	float m_Speed = 0.2f;
+
+	void hit();
 
 protected:
 	PlayerArms* arms = new PlayerArms();
@@ -110,7 +114,7 @@ protected:
 	FloatRect m_Top;
 	FloatRect m_Right;
 	FloatRect m_Left;
-	void hit();
+	
 
 
 };

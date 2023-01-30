@@ -39,9 +39,6 @@
     <ClInclude Include="HUD.h">
       <Filter>Header Files</Filter>
     </ClInclude>
-    <ClInclude Include="Obstacle2.h">
-      <Filter>Header Files</Filter>
-    </ClInclude>
     <ClInclude Include="PlayerArms.h">
       <Filter>Header Files</Filter>
     </ClInclude>
@@ -89,13 +86,13 @@
     <ClCompile Include="ohYeahquestionmarkHUDexclamationMark.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
-    <ClCompile Include="Obstacle2.cpp">
-      <Filter>Source Files</Filter>
-    </ClCompile>
     <ClCompile Include="PlayerArms.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
     <ClCompile Include="Button.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="writeScore.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
   </ItemGroup>

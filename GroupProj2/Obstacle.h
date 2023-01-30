@@ -5,12 +5,27 @@ using namespace sf;
 
 class Obstacle
 {
+
 private:
+
+
+	// Public prototypes go here
+public:
+
+	Obstacle();
 	// The sprite that represents this Obstacle
 	Sprite m_Sprite;
 
+	//texture for obstacle
+	Texture m_Texture;
+
+	//rectsource for sprite animation
+	IntRect rectSpriteSource;
 	// The arena it exists in
 	IntRect m_Arena;
+
+	//Making a vector for position
+	Vector2f m_Position;
 
 	// What type of Obstacle is this? 
 	// 1 = bale, 2 = trough
@@ -23,18 +38,8 @@ private:
 	float m_SecondsToLive;
 	float m_SecondsToWait;
 
-	// Public prototypes go here
-public:
-
-	Obstacle(int type);
-
-	// Prepare a new Obstacle
-	void setArena(IntRect arena);
-
 	//Spawn an Obstacle
-	void spawn();
-
-	void setType();
+	void spawn(int xRes);
 
 	// Check the position of a Obstacle, used for checking collisions
 	FloatRect getPosition();
@@ -43,8 +48,11 @@ public:
 	Sprite getSprite();
 
 	// Let the Obstacle update itself each frame
-	void update(float elapsedTime);
+	void update(float elapsedTime, int xRes);
 
 	// Is this Obstacle currently spawned?
 	bool isSpawned();
+
+	//The player hits the Obstacle
+	void hit();
 };

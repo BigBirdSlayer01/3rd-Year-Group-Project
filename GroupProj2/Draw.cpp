@@ -6,14 +6,16 @@ void Engine::draw()
 	window.setView(mainView);
 	window.draw(backgroundSprite);
 	window.draw(floorSprite);
-	/*
-	for (int i = 0; i < 19; i++)
+	if (bObstacle.isSpawned())
 	{
-		if (obstacle[i].isSpawned())
-		{
-			window.draw(obstacle[i].getSprite());
-		}
-	}*/
+		window.draw(bObstacle.getSprite());
+	}
+
+	if (hPickup.isSpawned())
+	{
+		window.draw(hPickup.getSprite());
+	}
+
 	for (int i = 0; i < 100; i++)
 	{
 		if (bullets[i].isBulletActive())
@@ -21,7 +23,13 @@ void Engine::draw()
 			window.draw(bullets[i].getShape());
 		}
 	}
-	window.draw(user.getSprite());
+	if (inPlane != true) {
+		window.draw(user.getSprite());
+		window.draw(user.getArmSprite());
+	}
+	else {
+		window.draw(user.getSprite());
+	}
 	window.draw(user.getArmSprite());
 	for (auto it = begin(enemyVector); it != end(enemyVector); ++it)
 	{

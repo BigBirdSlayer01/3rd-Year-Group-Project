@@ -4,44 +4,47 @@
 #include <ctime>
 #include <cstdlib>
 
-Obstacle::Obstacle(int type)
+
+Obstacle::Obstacle()
 {
-	// Store the type of this Obstacle
-	m_Type = type;
+
+	m_Type = 1;
 
 	// Associate the texture with the sprite
 	if (m_Type == 1)
 	{
-		m_Sprite = Sprite(TextureHolder::GetTexture(
-			"graphics/HayBale.png"));
+		m_Texture.loadFromFile("graphics/HayBale.png");
+		rectSpriteSource = IntRect(0, 0, 76, 60);
 
 	}
 	else if (m_Type == 2)
 	{
-		m_Sprite = Sprite(TextureHolder::GetTexture(
-			"graphics/Fence.png"));
+		m_Texture.loadFromFile("graphics/Fence.png");
+		rectSpriteSource = IntRect(0, 0, 76, 60);
 	}
-	//Change origin when a texture actually exists for these obstacles
-	m_Sprite.setOrigin(25, 25);
+	m_Sprite = Sprite(m_Texture, rectSpriteSource);
+	m_Sprite.setPosition(m_Position);
+	m_Sprite.setOrigin(
+		rectSpriteSource.left + rectSpriteSource.width / 2,
+		rectSpriteSource.top + rectSpriteSource.height / 2);
+
+	m_SecondsToLive = 200;
+	m_SecondsToWait = 5;
 }
 
-void Obstacle::setArena(IntRect arena)
-{
-	// Copy the details of the arena to the Obstacle's m_Arena
-	m_Arena.left = arena.left + 50;
-	m_Arena.width = arena.width - 50;
-	m_Arena.top = arena.top + 50;
-	m_Arena.height = arena.height - 50;
-	spawn();
-}
-
-void Obstacle::spawn()
+void Obstacle::spawn(int xRes)
 {
 	// Not currently spawned
 	//m_Spawned = false;
 	m_SecondsSinceSpawn = 0;
 	m_Spawned = true;
-	m_Sprite.setPosition(500, 975);
+
+	//set enemy's position
+	m_Position.x = xRes;
+	m_Position.x += 40;
+	m_Position.y = 730;
+
+	m_Sprite.setPosition(m_Position);
 }
 
 FloatRect Obstacle::getPosition()
@@ -59,7 +62,7 @@ bool Obstacle::isSpawned()
 	return m_Spawned;
 }
 
-void Obstacle::update(float elapsedTime)
+void Obstacle::update(float elapsedTime, int xRes)
 {
 	if (m_Spawned)
 	{
@@ -82,16 +85,15 @@ void Obstacle::update(float elapsedTime)
 	// Do we need to spawn a Obstacle
 	if (m_SecondsSinceDeSpawn > m_SecondsToWait && !m_Spawned)
 	{
-		//Randomly change the type to spice up the game
-		setType();
 		// spawn the Obstacle and reset the timer
-		spawn();
-	}
 
+		spawn(xRes);
+	}
 }
 
-//This function generates a random number to change the type.
-void Obstacle::setType() {
-	srand(time(0));
-	m_Type = (rand() % 2);
+//If the player hits the box, remove it
+void Obstacle::hit()
+{
+	m_Spawned = false;
+	m_SecondsSinceDeSpawn = 0;
 }

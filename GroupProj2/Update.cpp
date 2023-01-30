@@ -22,6 +22,10 @@ void Engine::update(float dtAsSeconds)
 
 		m_FramesSinceLastHUDUpdate++;
 
+		bObstacle.update(dtAsSeconds, resolution.x);
+
+		hPickup.update(dtAsSeconds, resolution.x);
+
 		// Update the HUD every m_TargetFramesPerHUDUpdate frames
 		if (m_FramesSinceLastHUDUpdate > m_TargetFramesPerHUDUpdate)
 		{
@@ -63,16 +67,38 @@ void Engine::update(float dtAsSeconds)
 				bullets[i].updateBullet(dtAsSeconds);
 			}
 		}
-		/*
-		for (int i = 0; i < 19; i++)
+		//Checking if the player has hit an obstacle
+		if (user.getPosition().intersects
+		(bObstacle.getPosition()) && bObstacle.isSpawned())
 		{
-			if (obstacle[i].isSpawned())
-			{
-				obstacle[i].update(dtAsSeconds);
-			}
-		}*/
+			//user.hit();
+			user.setHealth(-1);
+			user.hit();
+			bObstacle.hit();
+		}
 
-		//checks for enemy/bullet collision
+		//Checking if the player has hit a Pickup
+		if (user.getPosition().intersects
+		(hPickup.getPosition()) && hPickup.isSpawned())
+		{
+			//If type is a bullet pickup, increase 
+			if (hPickup.getType() == 1) {
+				//Bullet code
+				hPickup.gotIt();
+			}
+			//If type is a health pickup, increase players health
+			else if (hPickup.getType() == 2) {
+				user.setHealth(1);
+				hPickup.gotIt();
+			}
+			//If type is a crop duster pickup, 
+			else if (hPickup.getType() == 3) {
+				hPickup.gotIt();
+				user.changeSprite("graphics/crop_duster.png");
+				//user.setSpeed(.4);
+				inPlane = true;
+			}
+		}
 
 		for (int i = 0; i < 100; i++)
 		{

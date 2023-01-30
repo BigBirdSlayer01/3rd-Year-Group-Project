@@ -5,23 +5,31 @@ using namespace sf;
 
 class Pickup
 {
-private:
-	//Start value for health pickups
-	const int HEALTH_START_VALUE = 50;
-	const int AMMO_START_VALUE = 12;
-	const int START_WAIT_TIME = 10;
-	const int START_SECONDS_TO_LIVE = 5;
 
-	// The sprite that represents this pickup
+private:
+
+
+	// Public prototypes go here
+public:
+	Pickup();
+
+	int type;
+	// The sprite that represents this Obstacle
 	Sprite m_Sprite;
 
+	//texture for obstacle
 	Texture m_Texture;
 
-	// How much is this pickup worth?
-	int m_Value;
+	//rectsource for sprite animation
+	IntRect rectSpriteSource;
+	// The arena it exists in
+	IntRect m_Arena;
 
-	// What type of pickup is this? 
-	// 1 = health, 2 = ammo
+	//Making a vector for position
+	Vector2f m_Position;
+
+	// What type of Pickup is this? 
+	// 1 = health, 2 = Crop Duster
 	int m_Type;
 
 	// Handle spawning and disappearing
@@ -31,32 +39,23 @@ private:
 	float m_SecondsToLive;
 	float m_SecondsToWait;
 
-	// Public prototypes go here
-public:
+	//Spawn an Obstacle
+	void spawn(int xRes);
 
-	Pickup();
-
-	void spawn();
-
-	// Check the position of a pickup
+	// Check the position of a Obstacle, used for checking collisions
 	FloatRect getPosition();
 
 	// Get the sprite for drawing
 	Sprite getSprite();
 
-	// Let the pickup update itself each frame
-	void update(float elapsedTime);
+	// Let the Obstacle update itself each frame
+	void update(float elapsedTime, int xRes);
 
-	// Is this pickup currently spawned?
+	// Is this Obstacle currently spawned?
 	bool isSpawned();
 
-	// Get the goodness from the pickup
-	int gotIt();
+	//The player gets the Pickup
+	void gotIt();
 
-	// Upgrade the value of each pickup
-	void upgrade();
-
+	int getType();
 };
-
-
-

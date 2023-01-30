@@ -6,11 +6,12 @@
 #include "Enemy.h"
 #include "Button.h"
 #include "Pickup.h"
-#include "Obstacle2.h"
 #include "HUD.h"
 #include <iostream>
 #include <string>
 #include <vector>
+#include "Obstacle.h"
+#include "fstream"
 
 using namespace sf;
 
@@ -104,6 +105,13 @@ private:
 
 	Bullet bullets[100];
 
+	//Boolean for plane pickup
+	bool inPlane;
+
+	Obstacle bObstacle;
+
+	Pickup hPickup;
+
 	//Obstacle2 obstacle;
 
 	Time lastFired;
@@ -121,7 +129,12 @@ private:
 	void update(float dtAsSeconds);
 	void input();
 
+	void endGame(); //Player has died - end game
+	//file to store high score
+	std::ifstream readFile; //stream to read in high score from file
+	//method to handle file writing
 
+	void writeScore(int newScore);
 
 public:
 	// The Engine constructor

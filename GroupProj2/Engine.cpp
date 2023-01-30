@@ -68,6 +68,10 @@ Engine::Engine()
 	bulletsInClip = 6;
 	fireRate = 1;
 
+	Obstacle bObstacle();
+
+	Pickup hPickup();
+
 	//load font
 	font.loadFromFile("fonts/Farm.ttf");
 
@@ -184,8 +188,12 @@ void Engine::run()
 					if (user.detectCollisions((*it)->getPosition()))//check for collision between player and enemy)
 					{
 						(*it)->hit();
-						user.setHealth(user.getHealth() - 1);
 						hit.play();
+						if (user.getHealth() <= 0)
+						{
+							endGame(); //end game - player has died
+							
+						}
 					}
 				}
 				if ((*it)->getPosition().left > 0)
@@ -216,4 +224,9 @@ void Engine::run()
 		}
 		draw();
 	}
+	writeScore(user.getScore());//write high Score
+}
+void Engine::endGame()
+{
+	state = State::GAME_OVER; //set game over state
 }

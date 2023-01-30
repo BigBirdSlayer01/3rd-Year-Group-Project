@@ -295,6 +295,7 @@ bool Player::detectCollisions(FloatRect enemyBlock)
 		)
 	{
 		isHit = true;
+		setHealth(m_health - 1); //reduce health by 1
 		return true;
 	}
 	return false;
@@ -333,4 +334,10 @@ int Player::getScore()
 void Player::setScore(int scoreUp)
 {
 	m_Score += scoreUp;
+}
+
+
+void Player::changeSprite(String x)
+{
+	m_texture.loadFromFile(x);
 }
