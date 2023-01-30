@@ -32,7 +32,8 @@ void Engine::draw()
 	}
 	// Draw the HUD
 	// Switch to m_HudView
-
+	window.draw(spriteCrosshair);
+	window.setView(m_HudView);
 	window.draw(m_Hud.getScore());
 	window.draw(m_Hud.getTime());
 	window.draw(m_Hud.getHealth());
@@ -40,8 +41,27 @@ void Engine::draw()
 	if (state != State::PLAYING)
 	{
 		window.draw(m_Hud.getMessage());
+		window.draw(menuSprite);
+		window.draw(menuText);
+		window.setMouseCursorVisible(true);
 	}
-	// Draw the particle system
+	if (state == State::GAME_OVER)
+	{
+		window.draw(menuText);
+		window.draw(gamestate_btn->getShape());
+		window.draw(gamestate_btn->getText());
+		window.draw(highButton->getShape());
+		window.draw(highButton->getText());
+		window.draw(quitButton->getShape());
+		window.draw(quitButton->getText());
+	}
+	if (state == State::PAUSED)
+	{
+		window.draw(pauseText);
+	}
 
+
+
+	//displays the window
 	window.display();
 }

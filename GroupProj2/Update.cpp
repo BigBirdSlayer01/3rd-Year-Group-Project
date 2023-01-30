@@ -13,6 +13,7 @@ void Engine::update(float dtAsSeconds)
 
 	resolution.x = resolution.x + user.getSpeed();
 
+
 	//updates the frame
 	if (state == State::PLAYING)
 	{
@@ -31,7 +32,6 @@ void Engine::update(float dtAsSeconds)
 			std::stringstream ssScore;
 			std::stringstream ssHealth;
 			std::stringstream ssBullets;
-
 
 			// Update the time text
 			ssTime << (int)m_TimeRemaining;
@@ -82,6 +82,7 @@ void Engine::update(float dtAsSeconds)
 				{
 					if (bullets[i].getBulletPosition().intersects((*it)->getPosition()))
 					{
+						chicken.play();
 						bullets[i].stopBullet();
 
 						(*it)->hit();
@@ -130,7 +131,6 @@ void Engine::update(float dtAsSeconds)
 		{
 			currentObstacle++;
 			obstacle[currentObstacle].spawn();
-
 		}
 		if (currentObstacle > 19)
 		{
