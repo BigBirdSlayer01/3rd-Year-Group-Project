@@ -36,7 +36,8 @@ void Player::Spawn(Vector2f startPosition, float gravity, Vector2f resolution)
 
 	m_JumpDuration = .67;
 
-	m_Speed = 0.2f;
+	m_Speed = 0.2f; //set speed
+	m_health = 2; //set health
 
 	//store resolution values
 	m_resolution.x = resolution.x;
@@ -295,6 +296,7 @@ bool Player::detectCollisions(FloatRect enemyBlock)
 		)
 	{
 		isHit = true;
+		setHealth(m_health - 1); //reduce health by 1
 		return true;
 	}
 	return false;
@@ -302,6 +304,7 @@ bool Player::detectCollisions(FloatRect enemyBlock)
 
 void Player::hit()
 {
+
 	if (flashCount % 40 == 0) //every 4 frames - change sprite image
 	{
 		if (isFlashing)
@@ -315,7 +318,7 @@ void Player::hit()
 			isFlashing = true;
 		}
 		//after 10 flashes, reset sprite image to default and boolean values to false
-		if (flashCount % 300 == 0)
+		if (flashCount % 400 == 0)
 		{
 			isHit = false;
 			isFlashing = false;

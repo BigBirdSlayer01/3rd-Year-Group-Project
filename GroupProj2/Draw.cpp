@@ -41,7 +41,7 @@ void Engine::draw()
 	{
 		window.draw(m_Hud.getMessage());
 	}
-	// Draw the particle system
+
 
 	window.display();
 }

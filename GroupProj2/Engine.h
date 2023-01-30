@@ -95,6 +95,7 @@ private:
 	void update(float dtAsSeconds);
 	void input();
 
+	void endGame(); //Player has died - end game
 	//file to store high score
 	std::ifstream readFile; //stream to read in high score from file
 	//method to handle file writing
