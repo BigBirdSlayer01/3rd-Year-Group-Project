@@ -89,7 +89,7 @@ Engine::Engine()
 	menuText.setFont(font);
 	menuText.setCharacterSize(150);
 	menuText.setFillColor(Color::Black);
-	menuText.setPosition(resolution.x / 2 - 750, 250);
+	menuText.setPosition(resolution.x / 2 - 750, 125);
 	menuText.setString("Chicken Hunt (Working Title)");
 
 	//paused text
