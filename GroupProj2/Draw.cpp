@@ -30,7 +30,7 @@ void Engine::draw()
 	else {
 		window.draw(user.getSprite());
 	}
-	window.draw(user.getArmSprite());
+	
 	for (auto it = begin(enemyVector); it != end(enemyVector); ++it)
 	{
 		if ((*it)->isAlive())

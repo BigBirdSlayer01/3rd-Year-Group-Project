@@ -187,6 +187,12 @@ void Engine::run()
 					(*it)->update(dt.asSeconds(), user.getCenter());
 					if (user.detectCollisions((*it)->getPosition()))//check for collision between player and enemy)
 					{
+						if (inPlane == true) {
+							inPlane = false;
+							user.changeSprite("graphics/Farmer_anim_full.png");
+							user.setSpeed(-.4);
+							user.setHealth(1);
+						}
 						(*it)->hit();
 						hit.play();
 						if (user.getHealth() <= 0)

@@ -11,6 +11,8 @@ private:
 
 	// Public prototypes go here
 public:
+
+	//default constructor
 	Pickup();
 
 	int type;
@@ -22,8 +24,6 @@ public:
 
 	//rectsource for sprite animation
 	IntRect rectSpriteSource;
-	// The arena it exists in
-	IntRect m_Arena;
 
 	//Making a vector for position
 	Vector2f m_Position;

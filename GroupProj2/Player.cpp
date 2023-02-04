@@ -15,6 +15,9 @@ void Player::Spawn(Vector2f startPosition, float gravity, Vector2f resolution)
 	m_Position.x = startPosition.x;
 	m_Position.y = startPosition.y;
 
+	//initialising the player Health
+	m_health = 3;
+
 	// Initialize the gravity
 	m_Gravity = gravity;
 
@@ -36,6 +39,7 @@ void Player::Spawn(Vector2f startPosition, float gravity, Vector2f resolution)
 
 	m_JumpDuration = .67;
 
+	//Possibly change this in a bit, game is slow and player is forced to collide with obstacles
 	m_Speed = 0.2f;
 
 	//store resolution values
@@ -275,13 +279,18 @@ float Player::getSpeed()
 	return m_Speed;
 }
 
+void Player::setSpeed(float nSpeed)
+{
+	m_Speed += nSpeed;
+}
+
 int Player::getHealth()
 {
 	return m_health;
 }
 void Player::setHealth(int newHealth)
 {
-	m_health = newHealth;
+	m_health += newHealth;
 }
 
 //detect collisions - used to check if player collides with 'enemyBlock' rect
@@ -295,7 +304,8 @@ bool Player::detectCollisions(FloatRect enemyBlock)
 		)
 	{
 		isHit = true;
-		setHealth(m_health - 1); //reduce health by 1
+		setHealth(-1); //reduce health by 1
+		setScore(-1);// reduce score by 1 on collision with enemies
 		return true;
 	}
 	return false;

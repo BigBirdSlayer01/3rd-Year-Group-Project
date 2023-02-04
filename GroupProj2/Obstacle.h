@@ -12,6 +12,7 @@ private:
 	// Public prototypes go here
 public:
 
+	//default constructor for the obstacle
 	Obstacle();
 	// The sprite that represents this Obstacle
 	Sprite m_Sprite;
@@ -21,8 +22,6 @@ public:
 
 	//rectsource for sprite animation
 	IntRect rectSpriteSource;
-	// The arena it exists in
-	IntRect m_Arena;
 
 	//Making a vector for position
 	Vector2f m_Position;
@@ -39,7 +38,7 @@ public:
 	float m_SecondsToWait;
 
 	//Spawn an Obstacle
-	void spawn(int xRes);
+	void spawn(Vector2f resolution);
 
 	// Check the position of a Obstacle, used for checking collisions
 	FloatRect getPosition();
@@ -48,7 +47,7 @@ public:
 	Sprite getSprite();
 
 	// Let the Obstacle update itself each frame
-	void update(float elapsedTime, int xRes);
+	void update(float elapsedTime, Vector2f resolution);
 
 	// Is this Obstacle currently spawned?
 	bool isSpawned();

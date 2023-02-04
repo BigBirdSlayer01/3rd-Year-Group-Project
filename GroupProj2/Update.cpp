@@ -22,7 +22,7 @@ void Engine::update(float dtAsSeconds)
 
 		m_FramesSinceLastHUDUpdate++;
 
-		bObstacle.update(dtAsSeconds, resolution.x);
+		bObstacle.update(dtAsSeconds, resolution);
 
 		hPickup.update(dtAsSeconds, resolution); //passes resolution - dynamic spawning of pickup
 
@@ -54,10 +54,6 @@ void Engine::update(float dtAsSeconds)
 
 			m_FramesSinceLastHUDUpdate = 0;
 		}
-		/*
-		BaleObstacle(1).update(dtAsSeconds);
-		FenceObstacle(2).update(dtAsSeconds);*/
-
 
 		//update bullets
 		for (int i = 0; i < 100; i++)
@@ -71,11 +67,24 @@ void Engine::update(float dtAsSeconds)
 		if (user.getPosition().intersects
 		(bObstacle.getPosition()) && bObstacle.isSpawned())
 		{
-			//user.hit();
-			user.setHealth(-1);
-			user.hit();
-			bObstacle.hit();
+			//if the player is in a plane then no health damage occurs but the plane is removed from them
+			if (inPlane == true) {
+				inPlane = false;
+				user.changeSprite("graphics/Farmer_anim_full.png");
+				user.setSpeed(-.4);
+				bObstacle.hit();
+				user.setScore(-1);
+			}
+			else {
+				//user.hit();
+				user.setHealth(-1);
+				user.hit();
+				bObstacle.hit();
+				user.setScore(-1);
+			}
 		}
+
+
 
 		//Checking if the player has hit a Pickup
 		if (user.getPosition().intersects
@@ -83,22 +92,26 @@ void Engine::update(float dtAsSeconds)
 		{
 			//If type is a bullet pickup, increase 
 			if (hPickup.getType() == 1) {
-				//Bullet code
+				clipsize++;
 				hPickup.gotIt();
+				user.setScore(2);
 			}
 			//If type is a health pickup, increase players health
 			else if (hPickup.getType() == 2) {
 				user.setHealth(1);
 				hPickup.gotIt();
+				user.setScore(2);
 			}
 			//If type is a crop duster pickup, 
 			else if (hPickup.getType() == 3) {
 				hPickup.gotIt();
 				user.changeSprite("graphics/crop_duster.png");
-				//user.setSpeed(.4);
+				user.setSpeed(.4);
 				inPlane = true;
+				user.setScore(2);
 			}
 		}
+
 
 		for (int i = 0; i < 100; i++)
 		{
@@ -112,6 +125,7 @@ void Engine::update(float dtAsSeconds)
 						bullets[i].stopBullet();
 
 						(*it)->hit();
+						user.setScore(1);
 					}
 				}
 			}
@@ -150,18 +164,6 @@ void Engine::update(float dtAsSeconds)
 				++itr;
 			}
 		}
-
-
-		/*
-		if (obstacle[currentObstacle].isSpawned() == false)
-		{
-			currentObstacle++;
-			obstacle[currentObstacle].spawn();
-		}
-		if (currentObstacle > 19)
-		{
-			currentObstacle = 0;
-		}*/
 		m_TimeRemaining += dtAsSeconds;
 	}
 }

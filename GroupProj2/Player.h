@@ -58,7 +58,7 @@ public:
 	void setX(int x);
 
 	float getSpeed();
-	//void setSpeed(float nSpeed);
+	void setSpeed(float nSpeed);
 	bool detectCollisions(FloatRect enemyBlock);
 
 	// background speed
@@ -77,7 +77,7 @@ protected:
 	//texture
 	Texture m_texture;
 	//health
-	int m_health;
+	float m_health;
 	//max health will use this for powerups
 	int max_health;
 	// How long does a jump last
