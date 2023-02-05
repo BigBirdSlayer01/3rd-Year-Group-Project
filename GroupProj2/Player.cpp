@@ -40,7 +40,7 @@ void Player::Spawn(Vector2f startPosition, float gravity, Vector2f resolution)
 	m_JumpDuration = .67;
 
 	//Possibly change this in a bit, game is slow and player is forced to collide with obstacles
-	m_Speed = 0.2f;
+	m_Speed = 0.6f;
 
 	//store resolution values
 	m_resolution.x = resolution.x;
