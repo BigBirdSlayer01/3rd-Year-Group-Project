@@ -66,8 +66,8 @@ void Engine::draw()
 		window.draw(menuText);
 		window.draw(gamestate_btn->getShape());
 		window.draw(gamestate_btn->getText());
-		window.draw(highButton->getShape());
-		window.draw(highButton->getText());
+		//window.draw(highButton->getShape());
+		//window.draw(highButton->getText());
 		window.draw(quitButton->getShape());
 		window.draw(quitButton->getText());
 	}

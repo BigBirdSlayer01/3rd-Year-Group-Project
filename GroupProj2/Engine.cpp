@@ -77,13 +77,13 @@ Engine::Engine()
 
 	//menu buttons
 	gamestate_btn = new Button(
-		resolution.x / 2 - 150, resolution.y / 2 - 200, 300, 80, &this->font, "Play", sf::Color(185, 65, 255), sf::Color(219, 165, 255), sf::Color(119, 0, 200));
+		resolution.x / 2 - 150, resolution.y / 2 - 100, 300, 80, &this->font, "Play", sf::Color(185, 65, 255), sf::Color(219, 165, 255), sf::Color(119, 0, 200));
 
 	highButton = new Button(
 		resolution.x / 2 - 150, resolution.y / 2, 300, 80, &this->font, "Highscore", sf::Color(185, 65, 255), sf::Color(219, 165, 255), sf::Color(119, 0, 200));
 
 	quitButton = new Button(
-		resolution.x / 2 - 150, resolution.y / 2 + 200, 300, 80, &this->font, "Quit", sf::Color(185, 65, 255), sf::Color(219, 165, 255), sf::Color(119, 0, 200));
+		resolution.x / 2 - 150, resolution.y / 2 + 100, 300, 80, &this->font, "Quit", sf::Color(185, 65, 255), sf::Color(219, 165, 255), sf::Color(119, 0, 200));
 
 	//Menu Text
 	menuText.setFont(font);
