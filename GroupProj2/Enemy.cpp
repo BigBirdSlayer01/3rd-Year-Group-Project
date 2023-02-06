@@ -34,10 +34,10 @@ void Enemy::spawn(float startX, float startY, float scale)
 	animationTimer = 0;
 	//setting enemy's texture and sprite
 	m_Texture.loadFromFile("graphics/chicken_anim.png");
-	rectSpriteSource = IntRect(0, 0, 128, 128);
-	m_Sprite = Sprite(m_Texture, rectSpriteSource);
+	rectSpriteSource = IntRect(0, 0, 128, 128); //rectangle that defines current sprite location in sheet
+	m_Sprite = Sprite(m_Texture, rectSpriteSource);//apply the texture
 
-	m_SecondsSinceSpawn = 0;
+	m_SecondsSinceSpawn = 0; //seconds since enemy has spawned
 
 	//set enemy's size to be dynamic with the screen resolution
 	//total height of screen = startY * 2
@@ -53,7 +53,7 @@ void Enemy::spawn(float startX, float startY, float scale)
 	//set enemy's position
 	m_Position.x = startX;
 	m_Position.y = startY;
-
+	//set the position and origin of the enemy
 	m_Sprite.setPosition(m_Position);
 	m_Sprite.setOrigin(
 		rectSpriteSource.left + rectSpriteSource.width / 2,
@@ -98,7 +98,7 @@ void Enemy::update(float elapsedTime, Vector2f playerLocation)
 	float playerX = playerLocation.x;
 	float playerY = playerLocation.y;
 
-	if (m_Alive)
+	if (m_Alive)//if enemy is still alive - increase seconds since spawn
 	{
 		m_SecondsSinceSpawn += elapsedTime;
 	}
@@ -139,12 +139,12 @@ void Enemy::update(float elapsedTime, Vector2f playerLocation)
 	//set enemy texture
 	m_Sprite.setTextureRect(rectSpriteSource);
 }
-
+//return time of enemy's spawn
 float Enemy::getTimeSpawn()
 {
 	return m_SecondsSinceSpawn;
 }
-
+//set the enemy's current position
 void Enemy::setPosition(int x, int y)
 {
 	m_Sprite.setPosition(x, y);

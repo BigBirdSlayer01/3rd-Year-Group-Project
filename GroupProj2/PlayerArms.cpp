@@ -14,25 +14,27 @@ void PlayerArms::spawn(Vector2f arm_Position)
 	// Move the sprite in to position
 	m_Sprite.setOrigin(64, 64);//set origin to centre
 	m_Sprite.setPosition(arm_Position);
-	m_Sprite.setScale(armSizeRatio, armSizeRatio);
+	m_Sprite.setScale(armSizeRatio, armSizeRatio); //set arms scale relative to screen size
 	m_texture.loadFromFile("graphics/player_arms.png"); //set texture for sprite
 	m_Sprite.setTexture(m_texture); //apply texture
 
 }
-
+//update the PlayerArms details
 bool PlayerArms::update(Vector2f new_Position, Vector2f newTargetCoords, Vector2f resolution)
 {
 	//update position values of playerArms
 	arm_Position = new_Position;
 	arm_Position.y -= arm_Position.y * 0.01;//move up slightly for correct placement
-	targetCoords = newTargetCoords;
+	targetCoords = newTargetCoords; //update target coords
 
-	m_Sprite.setPosition(arm_Position);
-
+	m_Sprite.setPosition(arm_Position);//set new position of arms
+	//find angle from PlayerArms to the centrepoint of the crosshair/cursor
 	float angle = (atan2(targetCoords.y - arm_Position.y,
 		targetCoords.x - arm_Position.x)
 		* 180) / 3.141;
+	//set the sprite's rotation to point at this angle
 	m_Sprite.setRotation(angle);
+	//if player has turned around - reverse the sprite around the Y-axis, so the arms will face in the correct direction
 	if ((angle > 90) || (angle < -90))
 	{
 		m_Sprite.setScale(armSizeRatio, -armSizeRatio);
@@ -40,7 +42,7 @@ bool PlayerArms::update(Vector2f new_Position, Vector2f newTargetCoords, Vector2
 	}
 	else
 	{
-		m_Sprite.setScale(armSizeRatio, armSizeRatio);
+		m_Sprite.setScale(armSizeRatio, armSizeRatio); //if not, ensure they are facing to the right/forwards
 		return true;
 	}
 }

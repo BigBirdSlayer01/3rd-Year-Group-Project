@@ -15,7 +15,7 @@ void Engine::writeScore(int newScore)
 	readFile >> scoreString; //place data into string
 	int oldScore = stoi(scoreString); //convert string to int for score
 	readFile.close();
-
+	//declare ofstream to write to the file
 	std::ofstream writeFile;
 	writeFile.open(filePath);
 	//check if old score if smaller than new score
@@ -23,5 +23,5 @@ void Engine::writeScore(int newScore)
 	{
 		writeFile << newScore;//overwrite score in file if greater than previous high score
 	}
-	writeFile.close();
+	writeFile.close();//close file
 }

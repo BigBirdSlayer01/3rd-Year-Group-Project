@@ -133,7 +133,7 @@ void Engine::run()
 	FloatRect floorBounds(0.f, 0.f, (resolution.x * 2.8), resolution.y);
 	IntRect iFloorBounds(floorBounds);
 	floorSprite.setTextureRect(iFloorBounds);
-
+	//starting bounds for teh floor sprite
 	const sf::Vector2f viewFloorStart(floorBounds.left + (floorBounds.width / 2), floorBounds.top + (floorBounds.height/2));
 	const sf::Vector2f spriteFloorStart(floorBounds.left, floorBounds.top + resolution.y*0.7);//flor sprite starts 0.7% down screen height
 
@@ -187,6 +187,7 @@ void Engine::run()
 					(*it)->update(dt.asSeconds(), user.getCenter());
 					if (user.detectCollisions((*it)->getPosition()))//check for collision between player and enemy)
 					{
+						//if currently in plane and struck by enemy - remove player from plane
 						if (inPlane == true) {
 							inPlane = false;
 							user.changeSprite("graphics/Farmer_anim_full.png");
@@ -213,6 +214,7 @@ void Engine::run()
 
 		if (state == State::PAUSED || state == State::GAME_OVER)
 		{
+			//if state is paused or game is over - revert to menu
 			mouseWorldPosition = window.mapPixelToCoords(Mouse::getPosition(), mainView);
 
 			gamestate_btn->update(mouseWorldPosition);

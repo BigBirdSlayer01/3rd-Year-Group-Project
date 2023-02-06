@@ -45,7 +45,6 @@
     <ClCompile Include="Button.cpp" />
     <ClCompile Include="TextureHolder.cpp" />
     <ClCompile Include="Update.cpp" />
-    <ClCompile Include="UpdatePlayer.cpp" />
     <ClCompile Include="writeScore.cpp" />
   </ItemGroup>
   <ItemGroup>
