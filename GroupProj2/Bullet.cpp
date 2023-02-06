@@ -8,6 +8,7 @@ Bullet::Bullet()
 
 void Bullet::shootBullet(float startX, float startY, float targetX, float targetY)
 {
+	//sets the bullet to active and sets the X and Y coordinates
 	m_BulletActive = true;
 	m_BulletPosition.x = startX;
 	m_BulletPosition.y = startY - startY * 0.02;
@@ -55,27 +56,31 @@ void Bullet::shootBullet(float startX, float startY, float targetX, float target
 
 }
 
+//stops the bullet
 void Bullet::stopBullet()
 {
 	m_BulletActive = false;
 }
 
+//checks if the bullet is active
 bool Bullet::isBulletActive()
 {
 	return m_BulletActive;
 }
 
+//gets the bullet position
 FloatRect Bullet::getBulletPosition()
 {
 	return m_BulletShape.getGlobalBounds();
 }
 
+//gets the bullet shape
 RectangleShape Bullet::getShape()
 {
 	return m_BulletShape;
 }
 
-
+//updates the bullet
 void Bullet::updateBullet(float elapsedTime)
 {
 	// Update the bullet position variables

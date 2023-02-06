@@ -43,22 +43,29 @@ public:
 	//stop jump
 	void stopJump();
 
+	//updates the player
 	void update(float elapsedTime, Vector2f targetCoords);//update player
 
+	//gets the X and Y points
 	int getX();
 	int getY();
 
+	//getter and setter for health
 	int getHealth();
 	void setHealth(int newHealth);
 
+	//getter and setter for score
 	int getScore();
 	void setScore(int scoreUp);
 
+	//sets X and Y points
 	void setY(int y);
 	void setX(int x);
 
+	//getter and setter for speed
 	float getSpeed();
 	void setSpeed(float nSpeed);
+	//boolean to detect collisions
 	bool detectCollisions(FloatRect enemyBlock);
 
 	// background speed

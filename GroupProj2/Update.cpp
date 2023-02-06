@@ -112,7 +112,7 @@ void Engine::update(float dtAsSeconds)
 			}
 		}
 
-
+		//updates the bullet and enemys collision detection
 		for (int i = 0; i < 100; i++)
 		{
 			for (auto it = begin(enemyVector); it != end(enemyVector); ++it)
@@ -134,6 +134,7 @@ void Engine::update(float dtAsSeconds)
 		int num1 = resolution.y / 2;
 		int randNum = rand() % num1;
 
+		//used to spawn enemy
 		if (totalGameTime.asMilliseconds() - EnemyLastSpawned.asMilliseconds() > 4000)
 		{
 			//for (auto it = begin(enemyVector); it != end(enemyVector); ++it)
@@ -145,7 +146,7 @@ void Engine::update(float dtAsSeconds)
 			EnemyLastSpawned = totalGameTime;
 			//}
 		}
-
+		//deletes enemy when its not alive
 		auto itr = enemyVector.begin();
 		while (itr != enemyVector.end())
 		{

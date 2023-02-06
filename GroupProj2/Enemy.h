@@ -38,13 +38,13 @@ public:
 	bool hit();//will return true when enemy is dead
 	//return value of m_Alive (is the enemy alive)
 	bool isAlive();
-
+	//gets how long since the time since spawn
 	float getTimeSpawn();
-
+	//sets position
 	void setPosition(int x, int y);
-
+	//sets whether or not the enemy is alive
 	void setAlive(bool new1);
-
+	//sets enemy health
 	void setHealth(float health);
 
 	//gets Centre

@@ -158,12 +158,12 @@ Vector2f Enemy::getCenter()
 		m_Position.y + m_Sprite.getGlobalBounds().height / 2
 	);
 }
-
+//sets enemy alive status
 void Enemy::setAlive(bool new1)
 {
 	m_Alive = new1;
 }
-
+//sets enemy health
 void Enemy::setHealth(float health)
 {
 	m_Health = health;

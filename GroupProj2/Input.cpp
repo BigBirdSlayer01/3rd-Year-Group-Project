@@ -5,6 +5,7 @@ void Engine::input()
 	Event event;
 	while (window.pollEvent(event))
 	{
+		//used for pausing and playing game
 		if (event.type == Event::KeyPressed)
 		{
 			if (event.key.code == Keyboard::Return && state == State::PLAYING)
@@ -29,6 +30,7 @@ void Engine::input()
 			}
 			if (state == State::PLAYING)
 			{
+				//used to reload
 				if (event.key.code == Keyboard::R)
 				{
 					//	for (int i = 0; i < 10000; i++) {

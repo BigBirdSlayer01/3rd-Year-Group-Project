@@ -53,6 +53,7 @@ private:
 	Sprite menuSprite;
 	Texture menuTexture;
 
+	//creates the 3 buttons
 	Button* gamestate_btn;
 	Button* highButton;
 	Button* quitButton;
@@ -86,45 +87,56 @@ private:
 	//decalres gravity
 	const int Gravity = 600;
 
+	//starting points
 	int startx = 150;
 	int starty = 1000;
 
+	//player class
 	Player user;
+	//pointer for enemy class
 	Enemy* enemy;
 
+	//vector of enemy pointers 
 	std::vector<Enemy*> enemyVector;
 
+	//crosshair sprite and crosshair
 	Sprite spriteCrosshair;
 	Texture textureCrosshair;
 
+	//
 	float newX = 0.f;
 	float newY = 0.f;
 
+	//current enemy and obstacle counter
 	int currentEnemy = 0;
 	int currentObstacle = 0;
 
+	//array for bullets
 	Bullet bullets[100];
 
 	//Boolean for plane pickup
 	bool inPlane;
 
+	//obstacle class
 	Obstacle bObstacle;
 
+	//pickup class
 	Pickup hPickup;
 
 	//Obstacle2 obstacle;
-
+	//time since last fired
 	Time lastFired;
-
+	//time since last enemy spawn
 	Time EnemyLastSpawned;
 
 	//std::vector<Enemy*> EnemyVector;
-
+	//variables for bullets
 	int currentBullet;
 	int clipsize;
 	int bulletsInClip;
 	float fireRate;
 
+	//draw update and input methods
 	void draw();
 	void update(float dtAsSeconds);
 	void input();

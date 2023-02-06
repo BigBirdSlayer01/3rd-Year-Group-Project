@@ -47,7 +47,7 @@ void Player::Spawn(Vector2f startPosition, float gravity, Vector2f resolution)
 	m_resolution.y = resolution.y;
 
 }
-
+//updates the player
 void Player::update(float elapsedTime, Vector2f targetCoords)
 {
 	animationTimer += elapsedTime;
@@ -198,27 +198,27 @@ FloatRect Player::getPosition()
 {
 	return m_Sprite.getGlobalBounds();
 }
-
+//gets the center
 Vector2f Player::getCenter()
 {
 	return Vector2f(m_Position.x, m_Position.y);
 }
-
+//gets the bottom of the player
 FloatRect Player::getBottom()
 {
 	return m_Bottom;
 }
-
+//gets the top of the player
 FloatRect Player::getTop()
 {
 	return m_Top;
 }
-
+//gets the players left
 FloatRect Player::getLeft()
 {
 	return m_Left;
 }
-
+//gets the players right
 FloatRect Player::getRight()
 {
 	return m_Right;
@@ -251,7 +251,7 @@ void Player::stopJump()
 	m_IsFalling = true;
 }
 
-//will hopefully be used to set player position and stop from falling off map
+//gets and sets the X and Y points
 int Player::getX()
 {
 	int x = m_Position.x;
@@ -273,7 +273,7 @@ void Player::setY(int y)
 {
 	m_Position.y = y;
 }
-
+//getter and setter for speed
 float Player::getSpeed()
 {
 	return m_Speed;
@@ -283,7 +283,7 @@ void Player::setSpeed(float nSpeed)
 {
 	m_Speed += nSpeed;
 }
-
+//getter and setter for health
 int Player::getHealth()
 {
 	return m_health;
@@ -310,7 +310,7 @@ bool Player::detectCollisions(FloatRect enemyBlock)
 	}
 	return false;
 }
-
+//method for when the player gets hit
 void Player::hit()
 {
 	if (flashCount % 40 == 0) //every 4 frames - change sprite image
@@ -336,7 +336,7 @@ void Player::hit()
 	}
 	flashCount++;
 }
-
+//gets and sets speed
 int Player::getScore()
 {
 	return m_Score;
@@ -346,7 +346,7 @@ void Player::setScore(int scoreUp)
 	m_Score += scoreUp;
 }
 
-
+//used to change the sprite for the player
 void Player::changeSprite(String x)
 {
 	m_texture.loadFromFile(x);

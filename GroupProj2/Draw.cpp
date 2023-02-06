@@ -2,10 +2,14 @@
 
 void Engine::draw()
 {
+	//cleats the window
 	window.clear();
+	//sets the view
 	window.setView(mainView);
+	//draws sprites
 	window.draw(backgroundSprite);
 	window.draw(floorSprite);
+	//if obstacles or pickups are spawned draw them
 	if (bObstacle.isSpawned())
 	{
 		window.draw(bObstacle.getSprite());
@@ -16,6 +20,7 @@ void Engine::draw()
 		window.draw(hPickup.getSprite());
 	}
 
+	//draw bullet if active
 	for (int i = 0; i < 100; i++)
 	{
 		if (bullets[i].isBulletActive())
@@ -23,6 +28,7 @@ void Engine::draw()
 			window.draw(bullets[i].getShape());
 		}
 	}
+	//draws player
 	if (inPlane != true) {
 		window.draw(user.getSprite());
 		window.draw(user.getArmSprite());
@@ -30,7 +36,7 @@ void Engine::draw()
 	else {
 		window.draw(user.getSprite());
 	}
-	
+	//draws active enemys
 	for (auto it = begin(enemyVector); it != end(enemyVector); ++it)
 	{
 		if ((*it)->isAlive())
@@ -46,6 +52,7 @@ void Engine::draw()
 	window.draw(m_Hud.getTime());
 	window.draw(m_Hud.getHealth());
 	window.draw(m_Hud.getBullet());
+	//draws HUD if playing
 	if (state != State::PLAYING)
 	{
 		window.draw(m_Hud.getMessage());
@@ -53,6 +60,7 @@ void Engine::draw()
 		window.draw(menuText);
 		window.setMouseCursorVisible(true);
 	}
+	//if game is not playing draw menu
 	if (state == State::GAME_OVER)
 	{
 		window.draw(menuText);
@@ -63,6 +71,7 @@ void Engine::draw()
 		window.draw(quitButton->getShape());
 		window.draw(quitButton->getText());
 	}
+	//draw pause text if paused
 	if (state == State::PAUSED)
 	{
 		window.draw(pauseText);
