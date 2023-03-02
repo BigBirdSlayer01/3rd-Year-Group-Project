@@ -212,8 +212,9 @@ void Engine::run()
 			update(dtAsSeconds);
 		}
 
-		if (state == State::PAUSED || state == State::GAME_OVER)
+		if (state == State::GAME_OVER)
 		{
+			user.setScore(0);
 			//if state is paused or game is over - revert to menu
 			mouseWorldPosition = window.mapPixelToCoords(Mouse::getPosition(), mainView);
 
@@ -231,10 +232,33 @@ void Engine::run()
 			}
 		}
 		draw();
+		if (user.getHealth() == 0)
+		{
+			endGame();
+			state = State::GAME_OVER; //set game over state
+			user.setHealth(3);
+			user.setScore(0);
+			clipsize = 6;
+			bulletsInClip = 6;
+			
+
+			Time dt = clock.restart();
+			// Update the total game time
+			totalGameTime += dt;
+		}
 	}
-	writeScore(user.getScore());//write high Score
+	//writeScore(user.getScore());//write high Score
 }
 void Engine::endGame()
 {
 	state = State::GAME_OVER; //set game over state
+	user.setHealth(3);
+	user.setScore(0);
+	clipsize = 6;
+	bulletsInClip = 6;
+
+	Time dt = clock.restart();
+	// Update the total game time
+	totalGameTime += dt;
+	
 }
