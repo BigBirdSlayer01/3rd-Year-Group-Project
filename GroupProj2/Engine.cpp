@@ -6,6 +6,8 @@ Engine::Engine()
 	//enum for the games state
 	state = State::GAME_OVER;
 
+	check = true;
+
 	resolution.x = VideoMode::getDesktopMode().width;
 	resolution.y = VideoMode::getDesktopMode().height;
 
@@ -245,6 +247,8 @@ void Engine::run()
 			Time dt = clock.restart();
 			// Update the total game time
 			totalGameTime += dt;
+
+			check = false;
 		}
 	}
 	//writeScore(user.getScore());//write high Score
@@ -261,4 +265,14 @@ void Engine::endGame()
 	// Update the total game time
 	totalGameTime += dt;
 	
+}
+
+void Engine::setBoolean(bool newBool)
+{
+	check = newBool;
+}
+
+bool Engine::getBoolean()
+{
+	return check;
 }

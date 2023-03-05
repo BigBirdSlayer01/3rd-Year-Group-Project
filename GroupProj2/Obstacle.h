@@ -12,6 +12,8 @@ private:
 	// Public prototypes go here
 public:
 
+	
+
 	//default constructor for the obstacle
 	Obstacle();
 	// The sprite that represents this Obstacle
@@ -51,6 +53,11 @@ public:
 
 	// Is this Obstacle currently spawned?
 	bool isSpawned();
+
+	Vector2f getCenter();
+
+	int getY();
+	int getX();
 
 	//The player hits the Obstacle
 	void hit();

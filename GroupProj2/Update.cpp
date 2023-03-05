@@ -64,25 +64,36 @@ void Engine::update(float dtAsSeconds)
 			}
 		}
 		//Checking if the player has hit an obstacle
-		if (user.getPosition().intersects
-		(bObstacle.getPosition()) && bObstacle.isSpawned())
+		if (!inPlane)
 		{
-			//if the player is in a plane then no health damage occurs but the plane is removed from them
-			if (inPlane == true) {
-				inPlane = false;
-				user.changeSprite("graphics/Farmer_anim_full.png");
-				user.setSpeed(-.4);
-				bObstacle.hit();
-				user.setScore(-1);
-			}
-			else {
-				//user.hit();
+			if (
+				user.getPosition2().contains(bObstacle.getX(), bObstacle.getY())
+				&& bObstacle.isSpawned()
+				)
+			{
 				user.setHealth(-1);
 				user.hit();
 				bObstacle.hit();
 				user.setScore(-1);
+				
 			}
 		}
+		else
+		{
+			if (user.getPosition().intersects
+			(bObstacle.getPosition()) && bObstacle.isSpawned())
+			{
+				//if the player is in a plane then no health damage occurs but the plane is removed from them
+					inPlane = false;
+					user.changeSprite("graphics/Farmer_anim_full.png");
+					user.setSpeed(-.4);
+					bObstacle.hit();
+					user.setScore(-1);
+				
+			}
+		}
+		
+		
 
 
 

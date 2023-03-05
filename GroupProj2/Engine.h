@@ -136,7 +136,10 @@ private:
 	int bulletsInClip;
 	float fireRate;
 
+	bool check;
+
 	//draw update and input methods
+	
 	void draw();
 	void update(float dtAsSeconds);
 	void input();
@@ -155,4 +158,6 @@ public:
 	// Run will call all the private functions
 	void run();
 
+	bool getBoolean();
+	void setBoolean(bool newBool);
 };

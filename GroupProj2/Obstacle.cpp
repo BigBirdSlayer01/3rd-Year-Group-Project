@@ -120,3 +120,22 @@ void Obstacle::hit()
 	m_Spawned = false;
 	m_SecondsSinceDeSpawn = 0;
 }
+
+//gets the center
+Vector2f Obstacle::getCenter()
+{
+	return Vector2f(m_Position.x, m_Position.y);
+}
+
+int Obstacle::getY()
+{
+	int y = m_Position.y;
+
+	return y;
+}
+int Obstacle::getX()
+{
+	int x = m_Position.x;
+
+	return x;
+}

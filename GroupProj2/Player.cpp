@@ -100,32 +100,32 @@ void Player::update(float elapsedTime, Vector2f targetCoords)
 	}
 
 	// Update the rect for all body parts
-	FloatRect pos = getPosition();
+	 pos = getPosition();
 
 	//not final used values from thomas was late temporarily
 	//bottom of player
-	m_Bottom.left = pos.left + 51;
-	m_Bottom.top = pos.top + pos.height - 33; //bottom of player - 32 (bottom of feet) - 1
+	m_Bottom.left = (pos.left + 51);
+	m_Bottom.top = (pos.top + pos.height - 33); //bottom of player - 32 (bottom of feet) - 1
 	m_Bottom.width = 24; //24 pixels
 	m_Bottom.height = 1;
 
 	//Top of player
-	m_Top.left = pos.left + 51;
-	m_Top.top = pos.top + 32;
+	m_Top.left = (pos.left + 51);
+	m_Top.top = (pos.top + 32);
 	m_Top.width = 24; //24 pixels wide
 	m_Top.height = 1;
 
 	//Right of player
-	m_Right.left = pos.left + pos.width - 53; //right of player sprite - 52 (player right position) - 1
-	m_Right.top = pos.top + 32;
+	m_Right.left = (pos.left + pos.width - 53); //right of player sprite - 52 (player right position) - 1
+	m_Right.top = (pos.top + 32);
 	m_Right.width = 1;
-	m_Right.height = pos.height - 64 - 2; //roughly half the size of image - 2
+	m_Right.height = (pos.height - 64 - 2); //roughly half the size of image - 2
 
 	//Left of player
-	m_Left.left = pos.left + 50;
-	m_Left.top = pos.top + 33; //32 (top of player) + 1 (buffer)
+	m_Left.left = (pos.left + 50);
+	m_Left.top = (pos.top + 33); //32 (top of player) + 1 (buffer)
 	m_Left.width = 1;
-	m_Left.height = pos.height - 64 - 2; //roughly half the size of image - 2
+	m_Left.height = (pos.height - 64 - 2); //roughly half the size of image - 2
 
 
 	// Move the sprite into position
@@ -197,6 +197,15 @@ bool Player::input()
 FloatRect Player::getPosition()
 {
 	return m_Sprite.getGlobalBounds();
+}
+FloatRect Player::getPosition2()
+{
+	FloatRect newPos = m_Sprite.getGlobalBounds();
+	newPos.height = pos.height - 15;
+	newPos.top = pos.top - 15;
+	newPos.width = pos.width - 50;
+	newPos.left = pos.left + 30;
+	return newPos;
 }
 //gets the center
 Vector2f Player::getCenter()

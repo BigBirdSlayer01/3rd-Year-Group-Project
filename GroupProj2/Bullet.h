@@ -46,7 +46,7 @@ protected:
 	bool m_BulletActive = false;
 
 	//bullet speed
-	float m_BulletSpeed = 500.0f;
+	float m_BulletSpeed = 700.0f;
 
 	//X and Y for BulletPosition
 	float m_BulletDistanceX;

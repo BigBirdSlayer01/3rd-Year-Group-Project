@@ -16,6 +16,7 @@ public:
 	Vector2f getCenter();
 	//gets the overall position of the player
 	FloatRect getPosition();
+	FloatRect getPosition2();
 
 	//spawns player
 	void Spawn(Vector2f position, float gravity, Vector2f resolution);
@@ -27,6 +28,8 @@ public:
 	FloatRect getBottom();
 	FloatRect getLeft();
 	FloatRect getRight();
+
+	FloatRect pos;
 
 	//rectsource for sprite animation
 	IntRect rectSpriteSource;
